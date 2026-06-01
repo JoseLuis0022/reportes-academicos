@@ -8,7 +8,7 @@ plugins:
   - jekyll-seo-tag
 
 url: "https://JoseLuis0022.github.io"
-baseurl: "/llm-ollama"
+baseurl: "/reportes-academicos"
 
 # Estilos
 just_the_docs:
@@ -21,8 +21,8 @@ search:
   heading_level: 2
 
 aux_links:
-  "Reportes Académicos":
-    - "https://joseluis0022.github.io/reportes-academicos"
+  "Ver en GitHub":
+    - "https://github.com/JoseLuis0022/reportes-academicos"
 
 permalink: pretty
 
