@@ -44,6 +44,7 @@ llama3.2:3b                        a80c4f17acd5    2.0 GB    hace 24 min
 | **Mistral 7B Instruct v0.3** | Mistral AI | LLM instruct con function calling | Apache 2.0 | 7B | Multilingüe; evaluar respuesta en español e inglés | Recomendable 16 GB RAM o GPU | `ollama run mistral:7b` | 4.4 GB |
 | **Phi-4-mini-instruct** | Microsoft | LLM instruct compacto, decoder-only | MIT | 3.8B | 22 idiomas: árabe, chino, checo, danés, neerlandés, inglés, finés, francés, alemán, hebreo, húngaro, italiano, japonés, coreano, noruego, polaco, portugués, ruso, español, sueco, tailandés, turco y ucraniano | Diseñado para entornos con memoria restringida; requiere Ollama 0.5.13+ | `ollama run phi4-mini` | 2.5 GB |
 | **TinyLlama 1.1B Chat** | TinyLlama | LLM chat compacto (arquitectura Llama 2) | Apache 2.0 | 1.1B | Principalmente inglés | Útil para equipos con recursos limitados; menor calidad esperada | `ollama run tinyllama:1.1b-chat-v1-q8_0` | 1.2 GB |
+| **Qwen3 8B** | Alibaba Cloud (Qwen Team) | LLM instruct causal con modo *thinking* (razonamiento interno) | Apache 2.0 | 8.2B | 100+ idiomas y dialectos | Recomendable 16 GB RAM o GPU; requiere BF16 | `ollama run qwen3:8b` | 5.2 GB |
 
 > **Nota:** "Parámetros" es el tamaño arquitectónico del modelo. "Tamaño en Ollama" es el espacio que ocupa la variante descargada (formato + cuantización), obtenido con `ollama ls`.
 
@@ -196,16 +197,41 @@ Los mismos cuatro prompts se ejecutaron en todos los modelos:
 
 ---
 
+### 5.7 Qwen3 8B (`qwen3:8b`)
+
+> **Característica destacada:** Qwen3 8B opera en **modo *thinking*** por defecto. Antes de cada respuesta, el modelo genera un bloque interno de razonamiento (`<think>...</think>`) donde planifica su respuesta paso a paso. Este proceso no es visible en el resultado final pero sí fue observable durante la ejecución en Ollama, donde el modelo imprimió su cadena de pensamiento antes de responder.
+
+#### Prompt 1 – Conceptual
+
+> Explicó la jerarquía de forma concisa y precisa: **IA** como campo general que busca imitar funciones cognitivas humanas; **aprendizaje automático (ML)** como subdisciplina que aprende patrones en datos sin programación explícita; **IA generativa** como tipo de IA que crea contenido nuevo (texto, imágenes, música); y **LLM** como subconjunto específico de IA generativa basado en arquitecturas *transformer* para procesar y generar texto. Respuesta dentro del límite de 200 palabras, en español impecable y con estructura lógica clara: IA → ML → IA Generativa → LLM.
+
+#### Prompt 2 – Embeddings
+
+> Presentó el ejemplo más completo y ejecutable de todos los modelos. Usó `sentence-transformers` con el modelo `all-MiniLM-L6-v2` para un repositorio de documentos sobre criptografía cuántica. Incluye código Python funcional en 4 pasos bien diferenciados: (1) preparación de documentos, (2) generación de embeddings, (3) búsqueda semántica con similitud coseno (`util.cos_sim`), y (4) explicación del resultado esperado. También mencionó bases de datos vectoriales (`FAISS`, `Annoy`) para producción. El ejemplo es autocontenido, reproducible y didáctico.
+
+#### Prompt 3 – Riesgos académicos
+
+> Identificó tres riesgos de forma concisa y directa: (1) **Plagio no intencional** — usar un LLM para generar un ensayo sin verificar si el contenido coincide con textos existentes; (2) **Información falsa o sesgada** — citar un estudio inexistente generado por el modelo como fuente confiable; (3) **Falta de rigor metodológico** — desarrollar una teoría académica basándose exclusivamente en la salida del LLM sin contrastar datos o argumentos. Respuesta muy concisa (3 puntos breves) pero completa y bien ejemplificada.
+
+#### Prompt 4 – ESP32
+
+> Proyecto de ejemplo: sistema de monitoreo de temperatura con sensor **DS18B20**, ESP32, Blynk y ThingSpeak. Estructuró el uso del LLM en 4 etapas explícitas: (1) planificación e investigación (bibliotecas `OneWire` y `DallasTemperature`), (2) desarrollo del código (fragmento C++ funcional completo), (3) depuración y optimización (diagnóstico de errores con resistencia pull-up), y (4) documentación y aprendizaje. En cada etapa diferencia claramente la **respuesta del LLM** de la **acción esperada del estudiante**, subrayando que el LLM acelera la investigación pero el estudiante es quien aplica, verifica y reflexiona.
+
+**Observación general:** Qwen3 8B es el modelo de mayor calidad en esta práctica. Su modo *thinking* le permite planificar respuestas antes de generarlas, lo que se traduce en respuestas más estructuradas, código funcional de alta calidad y razonamiento más cuidadoso. En español fue fluido y preciso. La contrapartida es que al incluir el bloque de pensamiento visible en Ollama, la generación total es más lenta que qwen2.5:7b, aunque el resultado final justifica la espera.
+
+---
+
 ## 6. Análisis comparativo de respuestas
 
-| Modelo | Calidad en español | Precisión técnica | Longitud/profundidad | Adherencia al formato |
-|--------|:------------------:|:-----------------:|:--------------------:|:---------------------:|
-| TinyLlama 1.1B | ⭐ Baja | ⭐ Baja | Larga pero imprecisa | ❌ No respetó límite |
-| Phi-4-mini 3.8B | ⭐⭐⭐⭐ Alta | ⭐⭐⭐⭐ Alta | Adecuada | ✅ Respetó límite |
-| Llama 3.2 3B | ⭐⭐⭐ Media-alta | ⭐⭐⭐⭐ Alta | Detallada | ✅ Respetó límite |
-| Gemma 3 4B | ⭐⭐⭐⭐⭐ Muy alta | ⭐⭐⭐⭐⭐ Muy alta | Óptima | ✅ Respetó límite |
-| Qwen2.5 7B | ⭐⭐⭐⭐⭐ Muy alta | ⭐⭐⭐⭐⭐ Muy alta | Muy detallada | ✅ Respetó límite |
-| Mistral 7B | ⭐⭐⭐ Media | ⭐⭐⭐ Media | Adecuada | ✅ Respetó límite |
+| Modelo | Calidad en español | Precisión técnica | Longitud/profundidad | Adherencia al formato | Modo *thinking* |
+|--------|:------------------:|:-----------------:|:--------------------:|:---------------------:|:---------------:|
+| TinyLlama 1.1B | ⭐ Baja | ⭐ Baja | Larga pero imprecisa | ❌ No respetó límite | ❌ |
+| Phi-4-mini 3.8B | ⭐⭐⭐⭐ Alta | ⭐⭐⭐⭐ Alta | Adecuada | ✅ Respetó límite | ❌ |
+| Llama 3.2 3B | ⭐⭐⭐ Media-alta | ⭐⭐⭐⭐ Alta | Detallada | ✅ Respetó límite | ❌ |
+| Gemma 3 4B | ⭐⭐⭐⭐⭐ Muy alta | ⭐⭐⭐⭐⭐ Muy alta | Óptima | ✅ Respetó límite | ❌ |
+| Qwen2.5 7B | ⭐⭐⭐⭐⭐ Muy alta | ⭐⭐⭐⭐⭐ Muy alta | Muy detallada | ✅ Respetó límite | ❌ |
+| Mistral 7B | ⭐⭐⭐ Media | ⭐⭐⭐ Media | Adecuada | ✅ Respetó límite | ❌ |
+| **Qwen3 8B** | ⭐⭐⭐⭐⭐ Muy alta | ⭐⭐⭐⭐⭐ Muy alta | Muy detallada y estructurada | ✅ Respetó límite | ✅ Sí (por defecto) |
 
 ---
 

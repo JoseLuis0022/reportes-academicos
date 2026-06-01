@@ -23,6 +23,7 @@ Este sitio documenta la **Práctica 1** del curso de IA Generativa (IBERO), en l
 | Modelo | Parámetros | Fabricante |
 |--------|-----------|-----------|
 | TinyLlama 1.1B Chat | 1.1B | TinyLlama |
+| Qwen3 8B | 8.2B | Alibaba Cloud |
 | Phi-4-mini-instruct | 3.8B | Microsoft |
 | Llama 3.2 3B Instruct | 3.21B | Meta |
 | Gemma 3 4B IT | 4B | Google DeepMind |
