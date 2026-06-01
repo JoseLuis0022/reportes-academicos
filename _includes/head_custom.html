@@ -1,0 +1,13 @@
+<link rel="stylesheet" href="{{ '/assets/css/custom.css' | relative_url }}">
+<link rel="icon" href="{{ '/assets/img/favicon.ico' | relative_url }}" sizes="any">
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const titleLink = document.querySelector('.site-title');
+    if (!titleLink || titleLink.querySelector('img')) return;
+    const img = document.createElement('img');
+    img.src = "{{ '/assets/img/logotipo.png' | relative_url }}";
+    img.alt = "Logo";
+    img.className = "site-logo";
+    titleLink.prepend(img);
+  });
+</script>

@@ -1,0 +1,33 @@
+title: LLM con Ollama – Práctica 1
+description: Instalación, ejecución y comparación de modelos LLM locales con Ollama y Hugging Face. Curso IA Generativa – IBERO.
+
+# GitHub Pages con Just the Docs
+remote_theme: just-the-docs/just-the-docs
+plugins:
+  - jekyll-remote-theme
+  - jekyll-seo-tag
+
+url: "https://JoseLuis0022.github.io"
+baseurl: "/llm-ollama"
+
+# Estilos
+just_the_docs:
+  custom_css:
+    - "assets/css/custom.css"
+  footer_content: ""
+
+search_enabled: true
+search:
+  heading_level: 2
+
+aux_links:
+  "Repositorio en GitHub":
+    - "https://github.com/JoseLuis0022/llm-ollama"
+
+permalink: pretty
+
+exclude:
+  - "Gemfile"
+  - "Gemfile.lock"
+  - "node_modules"
+  - "vendor"

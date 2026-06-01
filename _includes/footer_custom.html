@@ -1,0 +1,21 @@
+{% assign modified =
+  page.last_modified_at
+  | default: page.last_modified
+  | default: page.date
+  | default: site.time %}
+
+<footer class="custom-footer" role="contentinfo">
+  <p class="custom-footer__copy">
+    Copyright &copy; 2026 IBERO.
+    <a href="https://github.com/JoseLuis0022" rel="noopener" target="_blank">JoseLuis0022</a>.
+    This work is licensed under
+    <a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener" target="_blank">CC BY 4.0</a>.
+    <a href="{{ '/uso-ia/' | relative_url }}">Uso de IA</a>
+  </p>
+
+  <p class="custom-footer__modified">
+    <strong>Last modified:</strong>
+    {{ modified | date: "%A, %B %-d, %Y at %H:%M" }}
+  </p>
+
+</footer>
