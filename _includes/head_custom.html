@@ -1,13 +1,35 @@
 <link rel="stylesheet" href="{{ '/assets/css/custom.css' | relative_url }}">
 <link rel="icon" href="{{ '/assets/img/favicon.ico' | relative_url }}" sizes="any">
+
+<!-- Skip link accesibilidad — teclado -->
+<style>
+  body > a.skip-link:first-child {
+    position: fixed; top: -100%; left: 16px; z-index: 9999;
+    background: #C9962A; color: #1A1208; font-weight: 700;
+    padding: 8px 20px; border-radius: 0 0 8px 8px;
+    text-decoration: none; font-size: 0.9rem;
+    transition: top 150ms ease-out;
+  }
+  body > a.skip-link:first-child:focus { top: 0; }
+</style>
+
 <script>
+  /* Inyecta skip link */
   document.addEventListener('DOMContentLoaded', () => {
+    const skip = document.createElement('a');
+    skip.href = '#main-content';
+    skip.className = 'skip-link';
+    skip.textContent = 'Saltar al contenido';
+    document.body.prepend(skip);
+
+    /* Logo */
     const titleLink = document.querySelector('.site-title');
-    if (!titleLink || titleLink.querySelector('img')) return;
-    const img = document.createElement('img');
-    img.src = "{{ '/assets/img/logotipo.png' | relative_url }}";
-    img.alt = "Logo";
-    img.className = "site-logo";
-    titleLink.prepend(img);
+    if (titleLink && !titleLink.querySelector('img')) {
+      const img = document.createElement('img');
+      img.src = "{{ '/assets/img/logotipo.png' | relative_url }}";
+      img.alt = "Logo";
+      img.className = "site-logo";
+      titleLink.prepend(img);
+    }
   });
 </script>
