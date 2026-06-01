@@ -35,4 +35,5 @@ Este sitio documenta la **Práctica 1** del curso de IA Generativa (IBERO), en l
 ## Navegación
 
 - [Práctica 1 – Comparación de modelos LLM](practica1/)
+- [Rendimiento — Apple Feel](performance-apple-feel/)
 - [Uso de IA en este sitio](uso-ia/)
