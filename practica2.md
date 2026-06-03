@@ -18,10 +18,11 @@ nav_order: 3
 
 ## 1. Objetivo
 
-Diseñar y ejecutar un benchmark técnico de modelos LLM ejecutados localmente con Ollama, midiendo latencia, throughput (tokens por segundo) y calidad de respuesta. El experimento se divide en dos partes:
+Diseñar y ejecutar un benchmark técnico de modelos LLM ejecutados localmente con Ollama, midiendo latencia, throughput (tokens por segundo) y calidad de respuesta. La práctica se divide en tres partes:
 
-- **Experimento A** — comparar el rendimiento de tres modelos distintos bajo condiciones idénticas.
-- **Experimento B** — analizar el impacto de los parámetros de generación (`temperature`, `top_p`, `top_k`) sobre el rendimiento del mejor modelo.
+- **Experimento A** — matriz de decisión de plataformas para el proyecto final.
+- **Experimento B** — comparar el rendimiento de tres modelos distintos bajo condiciones idénticas.
+- **Experimento C** — analizar el impacto de los parámetros de generación (`temperature`, `top_p`, `top_k`) sobre el rendimiento del mejor modelo.
 
 ---
 
@@ -103,9 +104,21 @@ def quality_score(text):
 
 ---
 
-## 4. Experimento A — Comparación de modelos
+## 4. Experimento A — Matriz de decisión para proyecto final
 
-### 4.1 Configuración
+Para el proyecto final se evaluaron distintas plataformas de implementación de modelos de lenguaje (LLM), considerando factores como costo, latencia, privacidad, facilidad de implementación, escalabilidad y compatibilidad con la arquitectura del sistema propuesto.
+
+El proyecto propuesto implementará una arquitectura basada completamente en servicios de nube mediante APIs, permitiendo escalabilidad, modularidad y reducción del costo inicial de infraestructura.
+
+| Plataforma | Costo inicial | Costo operativo | Latencia | Privacidad | Implementación | Modelo | Escalabilidad | Notas |
+|---|---|---|---|---|---|---|---|---|
+| APIs en nube (OpenAI + Anthropic + OpenRouter) | **Bajo.** No requiere compra de hardware ni servidores dedicados. | **Variable.** Se paga por uso según tokens procesados y llamadas API. | **Baja–Media.** Las respuestas suelen generarse en pocos segundos dependiendo del modelo y complejidad. | **Media–Alta.** Los datos se procesan en servidores externos con medidas de seguridad del proveedor. | **Media.** Requiere integración de APIs, autenticación y automatización de flujos. | **Whisper, GPT-4.1 mini, GPT-5.1, Claude Haiku 4.5 y Claude Sonnet 4.6.** Cada modelo se usa según el tipo de tarea. | **Alta.** Puede aumentar usuarios y consultas sin necesidad de ampliar infraestructura propia. | Arquitectura completamente en nube. Se emplea routing inteligente: tareas simples usan modelos económicos y tareas complejas usan modelos avanzados para optimizar costos y rendimiento. |
+
+---
+
+## 5. Experimento B — Comparación de modelos
+
+### 5.1 Configuración
 
 | Parámetro | Valor |
 |-----------|-------|
@@ -117,7 +130,7 @@ def quality_score(text):
 | top_k | 40 |
 | num_predict | 200 |
 
-### 4.2 Resultados
+### 5.2 Resultados
 
 Promedios sobre 100 ciclos por modelo:
 
@@ -127,7 +140,7 @@ Promedios sobre 100 ciclos por modelo:
 | `phi4-mini:latest` | Microsoft | 48.69 | 3,371 | 111.1 | **8.25** ⭐ |
 | `gemma3:4b` | Google | 43.81 | 3,614 | 216.3 | 7.57 |
 
-### 4.3 Gráficas
+### 5.3 Gráficas
 
 **Latencia total por ciclo (100 iteraciones por modelo):**
 
@@ -141,20 +154,20 @@ Promedios sobre 100 ciclos por modelo:
 
 ![Boxplot latencia]({{ site.baseurl }}/assets/img/practica2/exp_a_boxplot.png)
 
-### 4.4 Análisis
+### 5.4 Análisis
 
 - **`llama3.2:3b`** fue el más rápido (61.76 TPS, 2,802 ms), gracias a su menor número de parámetros (3.21B). Es la opción ideal cuando la velocidad es prioritaria.
-- **`phi4-mini:latest`** obtuvo la mejor calidad (8.25/10) pese a ser el segundo más pequeño (3.8B), confirmando la eficiencia de su arquitectura Microsoft. Fue seleccionado para el Experimento B.
+- **`phi4-mini:latest`** obtuvo la mejor calidad (8.25/10) pese a ser el segundo más pequeño (3.8B), confirmando la eficiencia de su arquitectura Microsoft. Fue seleccionado para el Experimento C.
 - **`gemma3:4b`** tuvo el mayor tiempo de carga (216 ms vs ~100 ms de los otros), posiblemente por diferencias en cuantización. Su calidad fue la más baja del grupo.
 - La desviación estándar de `phi4-mini` en latencia fue alta (σ = 902 ms), indicando mayor variabilidad según la complejidad interna de cada respuesta.
 
 ---
 
-## 5. Experimento B — Variación de parámetros
+## 6. Experimento C — Variación de parámetros
 
-**Modelo:** `phi4-mini:latest` (ganador de calidad en Exp A)
+**Modelo:** `phi4-mini:latest` (ganador de calidad en Exp B)
 
-### 5.1 Configuración
+### 6.1 Configuración
 
 | Dimensión | Valores probados | Parámetros fijos |
 |-----------|-----------------|-----------------|
@@ -163,7 +176,7 @@ Promedios sobre 100 ciclos por modelo:
 | `top_k` | 10 · 40 · 80 | temperature=0.5, top_p=0.75 |
 | **Ciclos por config** | **100** | **Total: 900 llamadas** |
 
-### 5.2 Temperatura (`temperature`)
+### 6.2 Temperatura (`temperature`)
 
 | temperature | TPS media | Latencia media (ms) | Calidad media |
 |-------------|-----------|---------------------|---------------|
@@ -173,7 +186,7 @@ Promedios sobre 100 ciclos por modelo:
 
 **Observación:** temperatura alta (0.9) aumenta la latencia ~370 ms respecto a temperatura baja (0.1), ya que el modelo explora más tokens alternativos. La calidad es ligeramente mejor en valores medios (0.5).
 
-### 5.3 Nucleus sampling (`top_p`)
+### 6.3 Nucleus sampling (`top_p`)
 
 | top_p | TPS media | Latencia media (ms) | Calidad media |
 |-------|-----------|---------------------|---------------|
@@ -183,7 +196,7 @@ Promedios sobre 100 ciclos por modelo:
 
 **Observación:** `top_p=0.50` (vocabulario más restringido) produjo la mejor calidad (8.30) y una latencia moderada. Un `top_p` alto amplía el espacio de búsqueda sin mejorar necesariamente la calidad.
 
-### 5.4 Top-K sampling (`top_k`)
+### 6.4 Top-K sampling (`top_k`)
 
 | top_k | TPS media | Latencia media (ms) | Calidad media |
 |-------|-----------|---------------------|---------------|
@@ -193,7 +206,7 @@ Promedios sobre 100 ciclos por modelo:
 
 **Observación:** el impacto de `top_k` es mínimo en TPS, con diferencias menores a 0.1 token/seg. La latencia más baja se obtuvo con `top_k=40` (valor medio). `top_k=80` ofrece la mayor calidad marginalmente.
 
-### 5.5 Gráficas
+### 6.5 Gráficas
 
 **Efecto de temperature en TPS y latencia:**
 
@@ -207,13 +220,13 @@ Promedios sobre 100 ciclos por modelo:
 
 ![top_k]({{ site.baseurl }}/assets/img/practica2/exp_b_top_k.png)
 
-### 5.6 Análisis general del Experimento B
+### 6.6 Análisis general del Experimento C
 
 Los tres parámetros muestran un comportamiento estable en TPS (~48.7 tokens/seg en todos los casos), lo que indica que `phi4-mini` en CPU no ve limitado su throughput por la configuración de muestreo. Sin embargo, **la latencia sí varía** con `temperature`: a mayor aleatoriedad, el modelo toma más tiempo por token. El parámetro de mayor impacto práctico fue `temperature`.
 
 ---
 
-## 6. Tabla comparativa final
+## 7. Tabla comparativa final
 
 | Configuración óptima | Parámetro | Valor recomendado | Justificación |
 |----------------------|-----------|-------------------|---------------|
@@ -225,7 +238,7 @@ Los tres parámetros muestran un comportamiento estable en TPS (~48.7 tokens/seg
 
 ---
 
-## 7. Reflexión
+## 8. Reflexión
 
 ### ¿Qué modelo tuvo menor latencia promedio?
 
@@ -253,11 +266,11 @@ Porque en inferencia CPU el cuello de botella está en la multiplicación de mat
 
 ---
 
-## 8. Conclusión
+## 9. Conclusión
 
-Este benchmark permitió caracterizar cuantitativamente el rendimiento de tres modelos LLM en un entorno local CPU. Los resultados muestran que **`phi4-mini:latest` ofrece el mejor balance calidad/tamaño** para aplicaciones académicas, mientras que **`llama3.2:3b` es la opción óptima en escenarios donde la latencia es crítica**.
+Esta práctica permitió caracterizar cuantitativamente el rendimiento de tres modelos LLM en un entorno local CPU y definir la plataforma óptima para el proyecto final. Los resultados muestran que **`phi4-mini:latest` ofrece el mejor balance calidad/tamaño** para aplicaciones académicas, mientras que **`llama3.2:3b` es la opción óptima en escenarios donde la latencia es crítica**.
 
-El Experimento B confirmó que los parámetros de muestreo tienen un impacto menor en rendimiento cuando se trabaja con modelos pequeños en CPU, pero que `temperature` sigue siendo el más relevante para controlar el estilo de las respuestas. La configuración recomendada para uso académico es: `temperature=0.5`, `top_p=0.75`, `top_k=40`.
+El Experimento C confirmó que los parámetros de muestreo tienen un impacto menor en rendimiento cuando se trabaja con modelos pequeños en CPU, pero que `temperature` sigue siendo el más relevante para controlar el estilo de las respuestas. La configuración recomendada para uso académico es: `temperature=0.5`, `top_p=0.75`, `top_k=40`.
 
 ---
 
