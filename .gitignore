@@ -5,3 +5,6 @@ _site/
 .bundle/
 vendor/
 __pycache__/
+*.pyc
+.DS_Store
+_local/

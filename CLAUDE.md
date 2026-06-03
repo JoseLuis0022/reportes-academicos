@@ -20,8 +20,6 @@
 
 ## Setup de sesión (leer primero)
 
-La ruta definitiva del repo es `/Users/joseluismacedo/Desktop/Practica IA`.
-
 ```bash
 cd "/Users/joseluismacedo/Desktop/Practica IA"
 git status   # confirmar que el repo está limpio
@@ -37,6 +35,62 @@ git config user.name "JoseLuis0022"
 
 ---
 
+## Estructura de carpetas (definitiva)
+
+```
+/Users/joseluismacedo/Desktop/Practica IA/
+│
+│  ── Archivos raíz del sitio ──────────────────────────────
+├── CLAUDE.md                    ← este archivo (memoria del proyecto)
+├── _config.yml                  ← configuración Jekyll + Just the Docs
+├── index.md                     ← portada del sitio (nav_order: 1)
+├── practica1.md                 ← Práctica 1 (nav_order: 2)
+├── practica2.md                 ← Práctica 2 (nav_order: 3)
+├── uso-ia.md                    ← transparencia IA (nav_exclude: true)
+├── .gitignore
+│
+│  ── Plantillas Jekyll ─────────────────────────────────────
+├── _includes/
+│   ├── head_custom.html         ← skip link + favicon JS
+│   └── footer_custom.html       ← footer con foto de perfil
+│
+│  ── Recursos estáticos ────────────────────────────────────
+├── assets/
+│   ├── css/
+│   │   └── custom.css           ← sistema de diseño dorado/oscuro (563 líneas)
+│   ├── files/                   ← PDFs u otros adjuntos (vacío por ahora)
+│   └── img/
+│       ├── perfil.jpeg          ← foto de perfil 800×800px
+│       ├── practica2/           ← gráficas PNG del benchmark
+│       │   ├── exp_a_boxplot.png
+│       │   ├── exp_a_latencia.png
+│       │   ├── exp_a_tokens_per_second.png
+│       │   ├── exp_b_temperature.png
+│       │   ├── exp_b_top_k.png
+│       │   └── exp_b_top_p.png
+│       └── (practicaN/)         ← carpeta por práctica para sus imágenes
+│
+│  ── Datos de experimentos ─────────────────────────────────
+├── data/
+│   ├── exp_a_results.csv        ← 300 filas — Exp B Práctica 2
+│   └── exp_b_results.csv        ← 900 filas — Exp C Práctica 2
+│
+│  ── Scripts Python ────────────────────────────────────────
+└── scripts/
+    ├── benchmark_utils.py       ← funciones compartidas (API, métricas, CSV)
+    ├── benchmark_exp_a.py       ← Exp B: comparación de modelos
+    ├── benchmark_exp_b.py       ← Exp C: variación de parámetros
+    └── generate_plots.py        ← genera 6 gráficas matplotlib
+
+── Carpeta local (NO en git) ────────────────────────────────
+_local/                          ← archivos de trabajo, ignorado por .gitignore
+├── Guia de diseño.html          ← referencia del sistema de diseño
+├── HANDOFF.md                   ← historial de sesiones anteriores
+└── plan_practica2.md            ← plan de la Práctica 2
+```
+
+---
+
 ## Cómo hacer commit y push
 
 ```bash
@@ -46,7 +100,7 @@ git commit -m "Descripción del cambio"
 git push
 ```
 
-Verificar que el deploy de GitHub Pages arrancó:
+Verificar deploy de GitHub Pages:
 ```bash
 gh run list --repo JoseLuis0022/reportes-academicos --limit 3
 ```
@@ -57,71 +111,28 @@ El deploy tarda ~2-3 minutos en reflejarse en el sitio.
 
 ## Cómo funciona el deploy
 
-- **Plataforma:** GitHub Pages
-- **Rama:** `main`, directorio raíz `/`
+- **Plataforma:** GitHub Pages — rama `main`, directorio raíz `/`
 - **Motor:** Jekyll con `remote_theme: just-the-docs/just-the-docs`
 - **Trigger:** automático al hacer `git push` a `main`
 - **CLI autenticada:** `gh` como JoseLuis0022 con scope `repo` y `workflow`
 
 ---
 
-## Estructura del repositorio
-
-```
-/Users/joseluismacedo/Desktop/Practica IA/   ← raíz del repo
-├── CLAUDE.md                          ← este archivo
-├── _config.yml                        ← Jekyll: título, baseurl, tema, CSS
-├── index.md                           ← Portada del sitio (nav_order: 1)
-├── practica1.md                       ← Práctica 1 (nav_order: 2)
-├── practica2.md                       ← Práctica 2 (nav_order: 3)
-├── uso-ia.md                          ← Transparencia IA (nav_exclude: true)
-├── .gitignore
-├── _includes/
-│   ├── head_custom.html               ← Skip link + favicon JS
-│   └── footer_custom.html             ← Footer con foto de perfil
-├── assets/
-│   ├── css/custom.css                 ← Sistema de diseño completo (563 líneas)
-│   └── img/
-│       ├── perfil.jpeg                ← Foto de perfil 800×800px
-│       └── practica2/                 ← 6 gráficas PNG del benchmark
-├── data/
-│   ├── exp_a_results.csv              ← 300 filas — Exp B Práctica 2
-│   └── exp_b_results.csv              ← 900 filas — Exp C Práctica 2
-└── scripts/
-    ├── benchmark_utils.py
-    ├── benchmark_exp_a.py
-    ├── benchmark_exp_b.py
-    └── generate_plots.py
-```
-
-Archivos locales que NO están en git (solo en el disco):
-- `HANDOFF.md`, `plan_practica2.md`, `Guion.md`, `Contenido.txt`
-- `practica1-llm-ollama.md`, `Guia de diseño.html`
-- `foto de perfil.jpeg`, `reel_audio.mp3`, `reel_audio.txt`
-
----
-
 ## Cómo modificar el índice (index.md)
 
-Agregar la nueva práctica en la **tabla de prácticas** y en la sección **Navegación**:
+Agregar la nueva práctica en la **tabla** y en **Navegación**:
 
 ```markdown
-## Prácticas
-| # | Práctica | Tema |
-|---|----------|------|
-| 1 | [LLM locales con Ollama](practica1/) | ... |
-| 2 | [Benchmark de LLM](practica2/) | ... |
-| 3 | [Nueva práctica](practica3/) | Tema |   ← agregar aquí
+| 3 | [Nombre práctica](practica3/) | Tema breve |
 
-## Navegación
-- [Práctica 3 – Título](practica3/)           ← agregar aquí
+- [Práctica 3 – Título](practica3/)
 ```
 
 ---
 
 ## Cómo crear una nueva práctica
 
-1. Crear `practicaN.md` con este front matter:
+1. Crear `practicaN.md` en la raíz con front matter:
    ```yaml
    ---
    layout: default
@@ -129,12 +140,11 @@ Agregar la nueva práctica en la **tabla de prácticas** y en la sección **Nave
    nav_order: N+1
    ---
    ```
-2. Seguir la estructura de `practica2.md`:
+2. Estructura a seguir (igual que `practica2.md`):
    - Tabla de metadatos (modalidad, fecha, curso, profesor, herramientas)
-   - Secciones numeradas `## N. Título`
-   - Separadores `---` entre secciones principales
+   - Secciones `## N. Título` con separadores `---`
    - Blockquotes `>` para citas o respuestas de modelos
-3. Actualizar `index.md` (ver sección anterior)
+3. Actualizar `index.md`
 4. Si tiene imágenes: guardar en `assets/img/practicaN/`
 5. Commit y push
 
@@ -143,11 +153,9 @@ Agregar la nueva práctica en la **tabla de prácticas** y en la sección **Nave
 ## Cómo modificar un archivo existente
 
 ```bash
-# Editar el archivo con Claude (Edit tool) o directamente
-# Luego:
-cd "/Users/joseluismacedo/Desktop/Practica IA"
-git add practica1.md       # o el archivo que se modificó
-git commit -m "Actualiza práctica 1: descripción del cambio"
+# Editar con Claude (Edit tool) o directamente, luego:
+git add practica1.md
+git commit -m "Actualiza práctica 1: descripción"
 git push
 ```
 
@@ -155,7 +163,7 @@ git push
 
 ## Sistema de diseño — NO modificar sin razón
 
-Tokens principales en `assets/css/custom.css`:
+Tokens en `assets/css/custom.css`:
 
 | Token | Valor | Uso |
 |-------|-------|-----|
@@ -169,7 +177,7 @@ Tokens principales en `assets/css/custom.css`:
 | `--txt-1` | `#1A1208` | Headings |
 | `--txt-2` | `#4A3820` | Body text |
 
-Principios aplicados: mobile-first (375/768/1024px), `clamp()` en tipografía,
+Principios: mobile-first (375/768/1024px), `clamp()` en tipografía,
 touch targets ≥44px, `prefers-reduced-motion`, `focus-visible`.
 
 ---
@@ -195,8 +203,8 @@ Modelos confirmados instalados (junio 2026):
 | `qwen2.5-coder:14b` | 14B | Especializado en código |
 | `nomic-embed-text:latest` | — | Solo embeddings (no generativo) |
 
-**Regla:** usar solo modelos ya instalados. Hacer `ollama pull <modelo>` únicamente
-si la práctica exige uno específico no disponible.
+**Regla:** usar solo modelos instalados. `ollama pull <modelo>` solo si la práctica
+exige uno específico que no esté disponible.
 
 ---
 
@@ -205,31 +213,26 @@ si la práctica exige uno específico no disponible.
 ```bash
 cd "/Users/joseluismacedo/Desktop/Practica IA"
 
-# Experimento B: comparación de modelos (300 ciclos, ~40 min)
-python3 scripts/benchmark_exp_a.py
-
-# Experimento C: variación de parámetros (900 ciclos, ~45 min)
-python3 scripts/benchmark_exp_b.py
-
-# Generar 6 gráficas PNG en assets/img/practica2/
-python3 scripts/generate_plots.py
+python3 scripts/benchmark_exp_a.py   # Exp B: 3 modelos × 100 ciclos (~40 min)
+python3 scripts/benchmark_exp_b.py   # Exp C: 9 configs × 100 ciclos (~45 min)
+python3 scripts/generate_plots.py    # genera PNGs en assets/img/practica2/
 ```
 
-Dependencias Python (instalar si faltan):
+Dependencias:
 ```bash
 pip3 install pandas matplotlib tqdm --break-system-packages
 ```
 
-API local de Ollama: `http://localhost:11434/api/generate`
+API Ollama local: `http://localhost:11434/api/generate`
 
 ---
 
-## Estado actual del portafolio
+## Estado del portafolio
 
 | # | Práctica | Tema | Estado |
 |---|----------|------|--------|
-| 1 | Práctica 1 | Instalación y comparación de 7 modelos LLM con Ollama | ✅ Completa |
-| 2 | Práctica 2 | Benchmark: matriz de decisión + comparación + variación de parámetros | ✅ Completa |
+| 1 | Práctica 1 | 7 modelos LLM con Ollama — instalación, comparación y reflexión | ✅ Completa |
+| 2 | Práctica 2 | Benchmark: matriz de decisión + comparación de modelos + variación de parámetros | ✅ Completa |
 
 ---
 
@@ -238,11 +241,11 @@ API local de Ollama: `http://localhost:11434/api/generate`
 **Práctica 1:**
 - `gemma3:4b` — mejor desempeño general
 - `qwen3:8b` — único con modo thinking visible
-- `tinyllama` — peor desempeño (confundió "LLM" con "LL.M." Licenciatura en Leyes)
+- `tinyllama` — peor desempeño (confundió LLM con LL.M.)
 
 **Práctica 2:**
-- `llama3.2:3b` — más rápido (61.76 TPS, 2,802 ms promedio)
-- `phi4-mini:latest` — mejor calidad (8.25/10) ⭐ elegido para Experimento C
-- Configuración óptima recomendada: `temperature=0.5`, `top_p=0.75`, `top_k=40`
-- TPS no varía con parámetros de muestreo (cuello de botella en multiplicación matricial)
+- `llama3.2:3b` — más rápido (61.76 TPS, 2,802 ms)
+- `phi4-mini:latest` — mejor calidad (8.25/10) ⭐
+- Configuración óptima: `temperature=0.5`, `top_p=0.75`, `top_k=40`
+- TPS estable con cualquier parámetro de muestreo (cuello de botella en capas del transformer)
 - Plataforma elegida para proyecto final: APIs en nube (OpenAI + Anthropic + OpenRouter)
