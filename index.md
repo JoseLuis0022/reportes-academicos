@@ -17,6 +17,7 @@ Cada práctica documenta experimentos reales con modelos de lenguaje grande (LLM
 |---|----------|------|
 | 1 | [LLM locales con Ollama](practica1/) | Instalación, ejecución y comparación de 7 modelos LLM |
 | 2 | [Benchmark de LLM](practica2/) | Requerimientos técnicos, parámetros y benchmarking con Python |
+| 3 | [Chatbot con LLM Local](practica3/) | Chatbot web con FastAPI y Ollama: arquitectura, métricas y extensión Page Assist |
 
 ---
 
@@ -38,4 +39,5 @@ Cada práctica documenta experimentos reales con modelos de lenguaje grande (LLM
 
 - [Práctica 1 – Comparación de modelos LLM](practica1/)
 - [Práctica 2 – Benchmark de LLM](practica2/)
+- [Práctica 3 – Chatbot con LLM Local](practica3/)
 - [Uso de IA en este sitio](uso-ia/)
