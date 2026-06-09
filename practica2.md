@@ -8,7 +8,8 @@ nav_order: 3
 
 | | |
 |---|---|
-| **Modalidad** | Individual |
+| **Modalidad** | Equipo |
+| **Integrantes** | Jose Luis Macedo Escamilla · Fernanda Torres Abaroa · Alfredo José Mérida López |
 | **Fecha** | Junio 2026 |
 | **Curso** | IA Generativa — IBERO |
 | **Profesor** | Huber Girón |

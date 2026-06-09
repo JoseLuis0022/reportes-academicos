@@ -6,7 +6,8 @@ nav_order: 2
 
 # Práctica 1: Instalación, ejecución y comparación de modelos LLM locales con Ollama y Hugging Face
 
-**Modalidad:** Trabajo en equipo  
+**Modalidad:** Equipo  
+**Integrantes:** Jose Luis Macedo Escamilla · Fernanda Torres Abaroa · Alfredo José Mérida López  
 **Fecha:** 1 de junio de 2026
 
 ---
