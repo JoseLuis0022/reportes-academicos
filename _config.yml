@@ -1,4 +1,4 @@
-title: Reportes Académicos – IA Generativa
+title: Reportes Académicos
 description: Portafolio de prácticas del curso de IA Generativa (IBERO). Modelos LLM locales, benchmarking, embeddings y más.
 
 # GitHub Pages con Just the Docs
@@ -31,3 +31,4 @@ exclude:
   - "Gemfile.lock"
   - "node_modules"
   - "vendor"
+  - "CLAUDE.md"
