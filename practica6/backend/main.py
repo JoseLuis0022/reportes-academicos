@@ -8,10 +8,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 
 OLLAMA_URL = "http://localhost:11434/api/chat"
-# Nota: la guía oficial indica el broker público mqtt.mecatronica-ibero.mx.
-# Por precaución se usa un broker Mosquitto local (decisión documentada en practica6.md
-# sección 2) para no enviar ~100 mensajes de prueba a infraestructura externa compartida.
-MQTT_BROKER = "localhost"
+MQTT_BROKER = "mqtt.mecatronica-ibero.mx"
 MQTT_PORT = 1883
 MQTT_TOPIC = "public/llm-led/cmd"
 

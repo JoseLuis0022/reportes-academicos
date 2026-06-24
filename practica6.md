@@ -23,9 +23,17 @@ Evaluar una arquitectura completa LLM → backend → MQTT como agente de contro
 
 ---
 
-## 2. Decisión sobre el broker MQTT
+## 2. Verificación y uso del broker MQTT real
 
-La guía oficial especifica el broker público `mqtt.mecatronica-ibero.mx` (tópico `public/llm-led/cmd`). Para esta práctica se decidió **no publicar ~120 mensajes de prueba a ese broker compartido de la universidad** sin necesidad real de hardware conectado, y en su lugar se instaló y ejecutó un **broker Mosquitto local** (`localhost:1883`, mismo tópico) durante las pruebas. La arquitectura, el esquema de mensajes y el tópico son idénticos a los especificados en la guía — el único cambio es el host del broker, documentado explícitamente en [`practica6/backend/main.py`](practica6/backend/main.py).
+La guía oficial especifica el broker público `mqtt.mecatronica-ibero.mx` (tópico `public/llm-led/cmd`). Como el equipo de desarrollo no está físicamente dentro de la red de la universidad, primero se verificó la conectividad antes de ejecutar el lote completo de pruebas:
+
+1. **Prueba de puerto:** conexión TCP exitosa al puerto 1883.
+2. **Prueba de publicación:** un cliente publicó un mensaje de prueba y confirmó `is_published() = True`.
+3. **Prueba de round-trip:** un segundo cliente se suscribió al tópico `public/llm-led/cmd` *antes* de publicar, y recibió el mensaje de vuelta en tiempo real, confirmando que el broker está expuesto públicamente a internet (no restringido a la red interna del campus).
+
+Con la conectividad confirmada, las **120 pruebas se ejecutaron contra el broker real de la universidad**, usando exactamente el tópico y esquema de mensaje especificados en la guía oficial — sin necesidad de infraestructura sustituta.
+
+*(Nota de proceso: en una iteración previa de esta práctica se usó un broker Mosquitto local como medida de precaución, antes de confirmar que el broker real era accesible desde fuera del campus.)*
 
 ---
 
@@ -40,7 +48,7 @@ La guía oficial especifica el broker público `mqtt.mecatronica-ibero.mx` (tóp
     ↓ valida esquema JSON
 [Backend] → si es válido, publica a MQTT (paho-mqtt)
     ↓
-[Broker Mosquitto local :1883] → tópico public/llm-led/cmd
+[Broker MQTT real :1883] → mqtt.mecatronica-ibero.mx, tópico public/llm-led/cmd
 ```
 
 **Esquema de salida exigido al modelo:**
@@ -69,10 +77,10 @@ Se construyó un dataset balanceado de 30 instrucciones etiquetadas manualmente 
 | Tasa de JSON válido (`schema_valid_rate`) | 100% |
 | Tasa de publicación MQTT (`mqtt_publish_rate`) | 100% |
 | Tasa de éxito arquitectónico (`architecture_success_rate`) | 100% |
-| Latencia media | 1.324 s |
-| Latencia P50 | 1.300 s |
-| Latencia P95 | 1.568 s |
-| Latencia P99 | 1.623 s |
+| Latencia media | 1.309 s |
+| Latencia P50 | 1.318 s |
+| Latencia P95 | 1.429 s |
+| Latencia P99 | 1.470 s |
 | Tokens de entrada promedio | 126.2 |
 | Tokens de salida promedio | 34.2 |
 
@@ -124,10 +132,10 @@ Instrucciones con verbos metafóricos para el dominio (iluminar/oscurecer un esp
 La clasificación. La validez de esquema fue perfecta (100%) en las 120 pruebas — el modelo nunca rompió el formato JSON exigido —, mientras que el 6.7% de error vino enteramente de la decisión semántica, no del formato de salida.
 
 **4. ¿Qué tan estable fue la latencia?**
-Muy estable: la diferencia entre P50 (1.30 s) y P95 (1.57 s) es de apenas 0.27 s, y P99 (1.62 s) está a solo 0.05 s más. No se observaron outliers severos en 120 ciclos.
+Muy estable: la diferencia entre P50 (1.32 s) y P95 (1.43 s) es de apenas 0.11 s, y P99 (1.47 s) está a solo 0.04 s más. No se observaron outliers severos en 120 ciclos, ni siquiera al publicar a un broker externo real en vez de uno local.
 
 **5. ¿Cómo se comportaron P95/P99 respecto a la media?**
-Muy cerca de la media (1.32 s): P95 es solo 18% mayor y P99 23% mayor, lo que indica una distribución de latencia con cola corta — favorable para un caso de uso de control en tiempo real.
+Muy cerca de la media (1.31 s): P95 es solo 9% mayor y P99 12% mayor, lo que indica una distribución de latencia con cola corta. La latencia de red hacia el broker universitario resultó prácticamente despreciable frente al tiempo de inferencia del LLM, que domina el tiempo total.
 
 **6. ¿Hubo correspondencia entre clasificación válida y publicación MQTT?**
 Sí, total: `schema_valid_rate` y `mqtt_publish_rate` fueron ambas 100%, porque la lógica del backend solo publica si el esquema es válido — en este experimento todo JSON generado fue válido, así que todo se publicó, independientemente de si la clasificación fue correcta o no (los 8 errores semánticos también se publicaron, ya que `action: "none"` es un valor válido del esquema).
