@@ -1,0 +1,28 @@
+{
+  "generico": {
+    "model": "gemma3:4b",
+    "copilot_profile": "generico",
+    "copilot_label": "Asistente genérico",
+    "system_prompt_used": "Eres un asistente de propósito general. Responde de forma clara y breve.",
+    "reply": "La odometría diferencial es una técnica que utiliza dos sensores (normalmente cámaras o LiDAR) montados en el mismo vehículo para estimar la pose (posición y orientación) del vehículo. \n\n**Cómo funciona:**\n\n*   Los sensores capturan imágenes/puntos del entorno simultáneamente.\n*   Se calcula la diferencia entre las perspectivas de los dos sensores. Esta diferencia, al ser conocida, permite calcular el movimiento relativo del vehículo.\n*   Al repetir este proceso continuamente, se construye una estimación precisa de la trayectoria del vehículo.\n\n**Ejemplo para estudiantes:**\n\nImagina que tienes dos cámaras montadas en un coche. Una cámara está en la parte delantera (Cámara A) y otra en la parte trasera (Cámara B). \n\n*   La Cámara A ve el suelo frente al coche.\n*   La Cámara B ve el suelo detrás del coche.\n*   Al comparar las imágenes de ambas cámaras, puedes determinar qué tan lejos y en qué dirección se está moviendo el coche.  Si las imágenes muestran que la línea de base entre las dos cámaras se ha desplazado hacia la derecha, entonces sabes que el coche se está moviendo a la derecha.\n\n**En resumen:** Se basa en medir la diferencia visual entre dos puntos de vista para determinar el movimiento relativo.\n",
+    "metrics": {
+      "wall_time_s": 5.96,
+      "prompt_tokens": 50,
+      "completion_tokens": 269,
+      "tokens_per_second": 48.87
+    }
+  },
+  "robotica": {
+    "model": "gemma3:4b",
+    "copilot_profile": "robotica",
+    "copilot_label": "Copiloto de robótica móvil",
+    "system_prompt_used": "Eres un copiloto especializado en robótica móvil y mecatrónica. Rol: ingeniero experto en sistemas embebidos, sensores y control. Tarea: explicar conceptos técnicos con ecuaciones cuando aplique. Formato: explicación conceptual, ecuaciones básicas, ejemplo para estudiantes de ingeniería, y una limitación práctica. Límites: no inventes datasheets ni especificaciones de hardware; señala advertencias de seguridad cuando se mencione actuar sobre hardware real.",
+    "reply": "¡Excelente pregunta! La odometría diferencial es una técnica fundamental en robótica móvil, especialmente para la navegación autónoma, y es mucho más sofisticada que simplemente medir cuántos grados giran las ruedas. Vamos a desglosarla paso a paso, con un enfoque adecuado para estudiantes de primer semestre de ingeniería.\n\n**Explicación Conceptual:**\n\nLa odometría diferencial se basa en el principio de que la incertidumbre en la estimación del desplazamiento (posición) de un robot móvil se reduce significativamente al utilizar dos o más sensores de rotación (normalmente encoders) montados en ruedas opuestas.  Imagina un coche: si solo miras una rueda, es difícil saber con exactitud cuánto ha avanzado porque el movimiento lateral (derrape, subviraje, etc.) afecta la medición. Al comparar las velocidades de las ruedas que giran en direcciones opuestas, podemos compensar estos efectos y obtener una estimación mucho más precisa del desplazamiento total.\n\n**Ecuaciones Básicas:**\n\nLa base matemática de la odometría diferencial reside en el cálculo diferencial.  Aquí tienes las ecuaciones clave:\n\n1. **Desplazamiento Total (Δx):** Este es lo que queremos calcular.  Se calcula como la diferencia entre las distancias recorridas por las ruedas, teniendo en cuenta sus ángulos de rotación.\n   * Δx = (ω₁ * t) - (ω₂ * t) + x₀\n   Donde:\n     * Δx: Desplazamiento total en el eje X (la dirección del movimiento).\n     * ω₁ y ω₂: Velocidades angulares de las ruedas 1 y 2, respectivamente (en radianes por segundo – rad/s).\n     * t: Tiempo transcurrido (en segundos – s).\n     * x₀: Desplazamiento inicial o offset.  Este es un valor que asumimos al principio, ya que no conocemos la",
+    "metrics": {
+      "wall_time_s": 8.79,
+      "prompt_tokens": 125,
+      "completion_tokens": 400,
+      "tokens_per_second": 48.63
+    }
+  }
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Práctica 4 — Copilotos con Ollama</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Copilotos especializados — Ollama</h1>
+
+  <label for="profile">Perfil de copiloto</label>
+  <select id="profile"></select>
+
+  <label for="systemPrompt">System prompt (editable)</label>
+  <textarea id="systemPrompt" rows="5"></textarea>
+  <button id="loadTemplate">Cargar plantilla</button>
+
+  <label for="message">Mensaje</label>
+  <textarea id="message" rows="3"></textarea>
+
+  <button id="send">Enviar</button>
+
+  <h2>Respuesta</h2>
+  <pre id="reply"></pre>
+
+  <h2>Métricas</h2>
+  <pre id="metrics"></pre>
+
+  <script src="app.js"></script>
+</body>
+</html>

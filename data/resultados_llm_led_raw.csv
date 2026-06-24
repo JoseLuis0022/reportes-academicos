@@ -1,0 +1,121 @@
+cycle,instruction,true_label,predicted_action,confidence,schema_valid,mqtt_published,architecture_success,wall_time_s,prompt_tokens,completion_tokens,tokens_per_second
+0,enciende el led,on,on,0.95,True,True,True,1.558,124,33,44.42
+1,prende la luz por favor,on,on,0.95,True,True,True,1.567,126,38,43.03
+2,activa el led ahora,on,on,0.95,True,True,True,1.566,125,38,42.75
+3,quiero que el led esté encendido,on,on,0.95,True,True,True,1.577,128,36,39.81
+4,turn on the light,on,on,0.95,True,True,True,1.431,124,29,37.94
+5,ilumina el cuarto,on,none,0.7,True,True,True,1.431,124,33,38.32
+6,pon el led en encendido,on,on,0.95,True,True,True,1.613,126,40,42.12
+7,"necesito luz, enciéndela",on,on,0.95,True,True,True,1.34,129,29,43.61
+8,activa la salida del LED,on,on,0.95,True,True,True,1.545,126,36,41.37
+9,favor de encender el indicador luminoso,on,on,0.95,True,True,True,1.533,127,33,38.86
+10,apaga el led,off,off,0.95,True,True,True,1.511,124,33,38.89
+11,quita la luz,off,off,0.95,True,True,True,1.525,123,37,38.61
+12,desactiva el led ahora,off,off,0.95,True,True,True,1.426,126,33,41.83
+13,quiero que el led esté apagado,off,off,0.95,True,True,True,1.507,128,36,43.3
+14,turn off the light,off,off,0.95,True,True,True,1.371,124,30,42.58
+15,oscurece el cuarto,off,none,0.8,True,True,True,1.461,125,31,38.59
+16,pon el led en apagado,off,off,0.95,True,True,True,1.454,126,33,38.63
+17,"ya no necesito luz, apágala",off,off,0.95,True,True,True,1.495,128,36,41.28
+18,desactiva la salida del LED,off,off,0.95,True,True,True,1.314,127,29,44.95
+19,favor de apagar el indicador luminoso,off,off,0.95,True,True,True,1.468,127,33,41.75
+20,¿qué hora es?,none,none,0.95,True,True,True,1.6,125,35,38.12
+21,cuéntame un chiste,none,none,0.8,True,True,True,1.54,126,34,38.8
+22,¿cómo está el clima hoy?,none,none,0.95,True,True,True,1.49,127,35,37.84
+23,explícame qué es un transistor,none,none,0.6,True,True,True,1.494,127,35,41.02
+24,"hola, ¿cómo estás?",none,none,0.8,True,True,True,1.323,126,29,44.56
+25,dame la receta de un pastel,none,none,0.95,True,True,True,1.625,127,36,38.81
+26,¿cuál es la capital de Francia?,none,none,0.95,True,True,True,1.611,129,37,39.42
+27,ayúdame con mi tarea de matemáticas,none,none,0.8,True,True,True,1.283,128,34,48.55
+28,el led parpadea muy rápido,none,none,0.8,True,True,True,1.431,127,41,48.76
+29,no sé qué hacer con el robot,none,none,0.95,True,True,True,1.28,127,35,48.97
+30,enciende el led,on,on,0.95,True,True,True,1.217,124,33,50.38
+31,prende la luz por favor,on,on,0.95,True,True,True,1.323,126,38,50.15
+32,activa el led ahora,on,on,0.95,True,True,True,1.316,125,38,50.37
+33,quiero que el led esté encendido,on,on,0.95,True,True,True,1.277,128,36,50.52
+34,turn on the light,on,on,0.95,True,True,True,1.157,124,29,49.22
+35,ilumina el cuarto,on,none,0.7,True,True,True,1.223,124,33,49.61
+36,pon el led en encendido,on,on,0.95,True,True,True,1.359,126,40,50.04
+37,"necesito luz, enciéndela",on,on,0.95,True,True,True,1.151,129,29,49.28
+38,activa la salida del LED,on,on,0.95,True,True,True,1.279,126,36,50.31
+39,favor de encender el indicador luminoso,on,on,0.95,True,True,True,1.219,127,33,50.5
+40,apaga el led,off,off,0.95,True,True,True,1.209,124,33,50.72
+41,quita la luz,off,off,0.95,True,True,True,1.297,123,37,50.15
+42,desactiva el led ahora,off,off,0.95,True,True,True,1.216,126,33,50.55
+43,quiero que el led esté apagado,off,off,0.95,True,True,True,1.277,128,36,50.36
+44,turn off the light,off,off,0.95,True,True,True,1.143,124,30,51.15
+45,oscurece el cuarto,off,none,0.8,True,True,True,1.171,125,31,50.68
+46,pon el led en apagado,off,off,0.95,True,True,True,1.217,126,33,50.45
+47,"ya no necesito luz, apágala",off,off,0.95,True,True,True,1.29,128,36,50.22
+48,desactiva la salida del LED,off,off,0.95,True,True,True,1.133,127,29,50.75
+49,favor de apagar el indicador luminoso,off,off,0.95,True,True,True,1.215,127,33,50.57
+50,¿qué hora es?,none,none,0.95,True,True,True,1.28,125,35,49.3
+51,cuéntame un chiste,none,none,0.8,True,True,True,1.237,126,34,50.12
+52,¿cómo está el clima hoy?,none,none,0.95,True,True,True,1.28,127,35,49.12
+53,explícame qué es un transistor,none,none,0.6,True,True,True,1.274,127,35,48.92
+54,"hola, ¿cómo estás?",none,none,0.8,True,True,True,1.148,126,29,50.85
+55,dame la receta de un pastel,none,none,0.95,True,True,True,1.298,127,36,49.15
+56,¿cuál es la capital de Francia?,none,none,0.95,True,True,True,1.315,129,37,49.1
+57,ayúdame con mi tarea de matemáticas,none,none,0.8,True,True,True,1.259,128,34,49.13
+58,el led parpadea muy rápido,none,none,0.8,True,True,True,1.403,127,41,48.72
+59,no sé qué hacer con el robot,none,none,0.95,True,True,True,1.283,127,35,48.66
+60,enciende el led,on,on,0.95,True,True,True,1.214,124,33,50.35
+61,prende la luz por favor,on,on,0.95,True,True,True,1.334,126,38,50.1
+62,activa el led ahora,on,on,0.95,True,True,True,1.326,125,38,50.24
+63,quiero que el led esté encendido,on,on,0.95,True,True,True,1.279,128,36,50.46
+64,turn on the light,on,on,0.95,True,True,True,1.151,124,29,49.49
+65,ilumina el cuarto,on,none,0.7,True,True,True,1.242,124,33,49.38
+66,pon el led en encendido,on,on,0.95,True,True,True,1.376,126,40,50.3
+67,"necesito luz, enciéndela",on,on,0.95,True,True,True,1.158,129,29,49.28
+68,activa la salida del LED,on,on,0.95,True,True,True,1.281,126,36,50.76
+69,favor de encender el indicador luminoso,on,on,0.95,True,True,True,1.223,127,33,50.78
+70,apaga el led,off,off,0.95,True,True,True,1.967,124,33,24.28
+71,quita la luz,off,off,0.95,True,True,True,1.31,123,37,51.1
+72,desactiva el led ahora,off,off,0.95,True,True,True,1.22,126,33,51.08
+73,quiero que el led esté apagado,off,off,0.95,True,True,True,1.306,128,36,50.07
+74,turn off the light,off,off,0.95,True,True,True,1.172,124,30,50.42
+75,oscurece el cuarto,off,none,0.8,True,True,True,1.184,125,31,50.51
+76,pon el led en apagado,off,off,0.95,True,True,True,1.231,126,33,50.28
+77,"ya no necesito luz, apágala",off,off,0.95,True,True,True,1.3,128,36,49.97
+78,desactiva la salida del LED,off,off,0.95,True,True,True,1.142,127,29,50.86
+79,favor de apagar el indicador luminoso,off,off,0.95,True,True,True,1.246,127,33,50.26
+80,¿qué hora es?,none,none,0.95,True,True,True,1.289,125,35,49.19
+81,cuéntame un chiste,none,none,0.8,True,True,True,1.24,126,34,50.53
+82,¿cómo está el clima hoy?,none,none,0.95,True,True,True,1.312,127,35,48.72
+83,explícame qué es un transistor,none,none,0.6,True,True,True,1.297,127,35,48.82
+84,"hola, ¿cómo estás?",none,none,0.8,True,True,True,1.15,126,29,50.58
+85,dame la receta de un pastel,none,none,0.95,True,True,True,1.306,127,36,49.23
+86,¿cuál es la capital de Francia?,none,none,0.95,True,True,True,1.333,129,37,49.15
+87,ayúdame con mi tarea de matemáticas,none,none,0.8,True,True,True,1.276,128,34,49.07
+88,el led parpadea muy rápido,none,none,0.8,True,True,True,1.415,127,41,48.93
+89,no sé qué hacer con el robot,none,none,0.95,True,True,True,1.304,127,35,48.99
+90,enciende el led,on,on,0.95,True,True,True,1.232,124,33,50.49
+91,prende la luz por favor,on,on,0.95,True,True,True,1.339,126,38,50.5
+92,activa el led ahora,on,on,0.95,True,True,True,1.341,125,38,50.31
+93,quiero que el led esté encendido,on,on,0.95,True,True,True,1.307,128,36,50.17
+94,turn on the light,on,on,0.95,True,True,True,1.169,124,29,49.43
+95,ilumina el cuarto,on,none,0.7,True,True,True,1.248,124,33,49.5
+96,pon el led en encendido,on,on,0.95,True,True,True,1.403,126,40,49.93
+97,"necesito luz, enciéndela",on,on,0.95,True,True,True,1.183,129,29,49.3
+98,activa la salida del LED,on,on,0.95,True,True,True,1.301,126,36,50.48
+99,favor de encender el indicador luminoso,on,on,0.95,True,True,True,1.246,127,33,50.55
+100,apaga el led,off,off,0.95,True,True,True,1.236,124,33,50.51
+101,quita la luz,off,off,0.95,True,True,True,1.319,123,37,50.58
+102,desactiva el led ahora,off,off,0.95,True,True,True,1.241,126,33,50.79
+103,quiero que el led esté apagado,off,off,0.95,True,True,True,1.323,128,36,50.16
+104,turn off the light,off,off,0.95,True,True,True,1.215,124,30,50.63
+105,oscurece el cuarto,off,none,0.8,True,True,True,1.196,125,31,50.91
+106,pon el led en apagado,off,off,0.95,True,True,True,1.244,126,33,50.5
+107,"ya no necesito luz, apágala",off,off,0.95,True,True,True,1.322,128,36,48.97
+108,desactiva la salida del LED,off,off,0.95,True,True,True,1.168,127,29,50.53
+109,favor de apagar el indicador luminoso,off,off,0.95,True,True,True,1.241,127,33,50.42
+110,¿qué hora es?,none,none,0.95,True,True,True,1.313,125,35,49.0
+111,cuéntame un chiste,none,none,0.8,True,True,True,1.276,126,34,50.29
+112,¿cómo está el clima hoy?,none,none,0.95,True,True,True,1.311,127,35,49.16
+113,explícame qué es un transistor,none,none,0.6,True,True,True,1.31,127,35,48.73
+114,"hola, ¿cómo estás?",none,none,0.8,True,True,True,1.165,126,29,50.43
+115,dame la receta de un pastel,none,none,0.95,True,True,True,1.351,127,36,48.16
+116,¿cuál es la capital de Francia?,none,none,0.95,True,True,True,1.353,129,37,49.3
+117,ayúdame con mi tarea de matemáticas,none,none,0.8,True,True,True,1.315,128,34,49.19
+118,el led parpadea muy rápido,none,none,0.8,True,True,True,1.44,127,41,48.94
+119,no sé qué hacer con el robot,none,none,0.95,True,True,True,1.324,127,35,48.96

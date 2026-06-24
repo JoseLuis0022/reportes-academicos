@@ -46,8 +46,25 @@ git config user.name "JoseLuis0022"
 ├── index.md                     ← portada del sitio (nav_order: 1)
 ├── practica1.md                 ← Práctica 1 (nav_order: 2)
 ├── practica2.md                 ← Práctica 2 (nav_order: 3)
+├── practica3.md                 ← Práctica 3 (nav_order: 4)
+├── practica4.md                 ← Práctica 4 (nav_order: 5)
+├── practica5.md                 ← Práctica 5 (nav_order: 6)
+├── practica6.md                 ← Práctica 6 (nav_order: 7)
 ├── uso-ia.md                    ← transparencia IA (nav_exclude: true)
-├── .gitignore
+├── .gitignore                   ← incluye .env / *.env (API keys nunca a git)
+│
+│  ── Código de prácticas 4-6 (backend/frontend funcionales) ──
+├── practica4/                   ← Copilotos: backend FastAPI + frontend + scripts de prueba
+│   ├── backend/main.py · requirements.txt
+│   ├── frontend/index.html · app.js · styles.css
+│   └── run_tests.py · test_results.json · comparison.json · injection_test.json
+├── practica5/                   ← Ollama vs OpenRouter
+│   ├── backend/main.py · requirements.txt · .env (NO en git) · .env.example
+│   ├── frontend/index.html · app.js · styles.css
+│   └── run_tests.py · comparison_results.json
+├── practica6/                   ← LED agent + MQTT
+│   ├── backend/main.py · requirements.txt
+│   └── run_tests.py · generate_report.py
 │
 │  ── Plantillas Jekyll ─────────────────────────────────────
 ├── _includes/
@@ -68,12 +85,15 @@ git config user.name "JoseLuis0022"
 │       │   ├── exp_b_temperature.png
 │       │   ├── exp_b_top_k.png
 │       │   └── exp_b_top_p.png
+│       ├── practica6/           ← gráficas del agente LED (matriz confusión, latencia, etc.)
 │       └── (practicaN/)         ← carpeta por práctica para sus imágenes
 │
 │  ── Datos de experimentos ─────────────────────────────────
 ├── data/
 │   ├── exp_a_results.csv        ← 300 filas — Exp B Práctica 2
-│   └── exp_b_results.csv        ← 900 filas — Exp C Práctica 2
+│   ├── exp_b_results.csv        ← 900 filas — Exp C Práctica 2
+│   ├── resultados_llm_led_raw.csv, resumen_metricas.csv, classification_report.csv,
+│   │   errores.csv, instrumento_supervision_llm_led.xlsx  ← Práctica 6 (120 pruebas)
 │
 │  ── Scripts Python ────────────────────────────────────────
 └── scripts/
@@ -188,23 +208,20 @@ touch targets ≥44px, `prefers-reduced-motion`, `focus-visible`.
 ollama list
 ```
 
-Modelos confirmados instalados (junio 2026):
+Modelos confirmados instalados (verificado 24 de junio de 2026 — **reemplaza la lista de
+junio 2026 usada en Prácticas 1-3**: `tinyllama`, `phi4-mini`, `llama3.2:3b`, `mistral:7b` y
+`qwen2.5-coder:14b` ya NO están instalados en este equipo):
 
 | Modelo | Parámetros | Uso recomendado |
 |--------|-----------|-----------------|
-| `tinyllama:1.1b-chat-v1-q8_0` | 1.1B | Pruebas rápidas |
-| `phi4-mini:latest` | 3.8B | Mejor calidad/tamaño ⭐ |
-| `llama3.2:3b` | 3.21B | Más rápido (61 TPS) ⚡ |
-| `gemma3:4b` | 4B | Buena calidad general |
-| `qwen2.5:7b` | 7.61B | Alta calidad |
-| `mistral:7b` | 7B | Alta calidad |
+| `gemma3:4b` | 4B | Modelo principal usado en Prácticas 4-6 ⭐ |
+| `qwen2.5:7b` | 7.61B | Alta calidad, usado en Práctica 5 |
 | `qwen3:8b` | 8.2B | Máxima calidad + modo thinking |
-| `gemma4:latest` | — | Disponible |
-| `qwen2.5-coder:14b` | 14B | Especializado en código |
-| `nomic-embed-text:latest` | — | Solo embeddings (no generativo) |
+| `qwen3-toolcalling:latest` | — | Especializado en tool/function calling |
 
-**Regla:** usar solo modelos instalados. `ollama pull <modelo>` solo si la práctica
-exige uno específico que no esté disponible.
+**Regla:** correr `ollama list` al inicio de cada práctica nueva — la lista de modelos
+instalados cambia entre sesiones. `ollama pull <modelo>` solo si la práctica exige uno
+específico que no esté disponible.
 
 ---
 
@@ -233,6 +250,10 @@ API Ollama local: `http://localhost:11434/api/generate`
 |---|----------|------|--------|
 | 1 | Práctica 1 | 7 modelos LLM con Ollama — instalación, comparación y reflexión | ✅ Completa |
 | 2 | Práctica 2 | Benchmark: matriz de decisión + comparación de modelos + variación de parámetros | ✅ Completa |
+| 3 | Práctica 3 | Chatbot con LLM Local (Ollama + FastAPI, comparación con Page Assist) | ✅ Completa |
+| 4 | Práctica 4 | Copilotos especializados con Ollama: perfiles, comparación genérico vs especializado, prompt injection | ✅ Completa |
+| 5 | Práctica 5 | APIs LLM externas (OpenRouter) vs Ollama local: costo, latencia, calidad | ✅ Completa |
+| 6 | Práctica 6 | Evaluación de arquitecturas LLM + MQTT: agente clasificador LED con métricas de clasificación | ✅ Completa |
 
 ---
 
@@ -249,3 +270,19 @@ API Ollama local: `http://localhost:11434/api/generate`
 - Configuración óptima: `temperature=0.5`, `top_p=0.75`, `top_k=40`
 - TPS estable con cualquier parámetro de muestreo (cuello de botella en capas del transformer)
 - Plataforma elegida para proyecto final: APIs en nube (OpenAI + Anthropic + OpenRouter)
+
+**Práctica 4:**
+- Hallazgo principal: el perfil `generico` alucinó el mecanismo de la odometría diferencial (lo describió como visión por cámaras/LiDAR en vez de encoders de rueda); el perfil `robotica` lo identificó correctamente.
+- `gemma3:4b` filtró su `system_prompt` completo ante un ataque simple de prompt injection (sin guardrails nativos).
+- Modelos instalados cambiaron respecto a versiones anteriores: `llama3.2:3b`/`mistral:7b`/`tinyllama`/`phi4-mini` ya no están en `ollama list`; modelos vigentes: `gemma3:4b`, `qwen2.5:7b`, `qwen3:8b`, `qwen3-toolcalling`. Verificar siempre con `ollama list` antes de cada práctica nueva.
+
+**Práctica 5:**
+- Comparación Ollama (`gemma3:4b`) vs OpenRouter (`gpt-4o-mini`, `llama-3.1-8b-instruct`) con el mismo prompt técnico de robótica.
+- Solo `gpt-4o-mini` reprodujo correctamente las ecuaciones canónicas de cinemática diferencial; los otros dos cometieron errores físicos/no estándar.
+- OpenRouter fue 3–5x más rápido que Ollama local en CPU (sin GPU dedicada).
+- API key de OpenRouter del usuario almacenada en `practica5/backend/.env` (excluido de git vía `.gitignore`); cuenta con límite de $4 USD.
+
+**Práctica 6:**
+- Arquitectura LLM → FastAPI → MQTT con `gemma3:4b`: 93.33% accuracy, 100% validez de esquema JSON y 100% publicación MQTT en 120 pruebas.
+- Errores 100% concentrados en instrucciones metafóricas ("ilumina/oscurece el cuarto") que no mencionan literalmente el LED.
+- Se usó un broker **Mosquitto local** en vez del broker público `mqtt.mecatronica-ibero.mx` de la guía oficial, por decisión explícita del usuario (evitar tráfico de prueba a infraestructura universitaria compartida). Mismo tópico (`public/llm-led/cmd`) y esquema de mensaje.

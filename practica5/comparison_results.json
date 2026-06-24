@@ -1,0 +1,38 @@
+{
+  "ollama::gemma3:4b": {
+    "reply": "¡Absolutamente! Aquí tienes una explicación concisa sobre la odometría diferencial aplicada a un robot móvil de dos ruedas, enfocada para estudiantes de ingeniería:\n\n**1. Explicación Conceptual:**\n\nLa odometría diferencial es un método de estimación de posición que utiliza las velocidades lineales de los motores de un robot con ruedas independientes. Se basa en la premisa de que, si ambas ruedas giran al mismo tiempo, su velocidad relativa debe ser cero. La diferencia entre sus velocidades (la \"odometría diferencial\") proporciona una estimación precisa de la dirección del movimiento.\n\n**2. Ecuaciones Básicas:**\n\n*   `v_left = ω_left * r_left`\n*   `v_right = ω_right * r_right`\n    Donde:\n    *   `v_left`, `v_right`: Velocidades lineales de las ruedas izquierda y derecha, respectivamente.\n    *   `ω_left`, `ω_right`: Velocidades angulares de las ruedas izquierda y derecha, respectivamente.\n    *   `r_left`, `r_right`: Radios de las ruedas.\n\nLa estimación del ángulo (θ) es:  `θ = atan2(v_right - v_left, r_left + r_right)`\n\n**3. Ejemplo para Estudiantes:**\n\nUn robot con ruedas de 0.1m de radio y un motor que gira",
+    "metrics": {
+      "wall_time_s": 12.75,
+      "prompt_tokens": 137,
+      "completion_tokens": 300,
+      "total_tokens": 437,
+      "tokens_per_second": 39.69
+    },
+    "provider": "ollama",
+    "model": "gemma3:4b"
+  },
+  "openrouter::openai/gpt-4o-mini": {
+    "reply": "### 1) Explicación Conceptual\nLa odometría diferencial es un método utilizado en robots móviles de dos ruedas para estimar su posición y orientación (pose) a partir de las medidas de desplazamiento de cada rueda. Cada rueda gira a una velocidad diferente, lo que provoca que el robot se desplace en una trayectoria curva. Al medir el desplazamiento de las ruedas, se puede calcular el movimiento del robot en el espacio.\n\n### 2) Ecuaciones Básicas\nSupongamos que el robot tiene dos ruedas, izquierda (L) y derecha (R), con un radio de rueda \\( r \\) y una distancia entre ejes \\( d \\). Las velocidades de las ruedas son \\( v_L \\) y \\( v_R \\). La velocidad lineal \\( v \\) y la velocidad angular \\( \\omega \\) del robot se pueden calcular como:\n\n\\[\nv = \\frac{r}{2} (v_L + v_R)\n\\]\n\n\\[\n\\omega = \\frac{r}{d} (v_R - v_L)\n\\]\n\nSi el robot se mueve durante un tiempo \\( t \\), el cambio en la posición \\( (x, y) \\) y la orientación \\( \\theta \\) se actualizan como:\n\n\\[\nx_{\\text{nuevo}} = x_{\\text{actual}} + v \\cdot \\cos(\\theta) \\cdot t\n\\]\n\n\\[\ny_{\\text{nuevo}} = y_{\\",
+    "metrics": {
+      "wall_time_s": 3.9,
+      "prompt_tokens": 135,
+      "completion_tokens": 300,
+      "total_tokens": 435,
+      "tokens_per_second": 76.87
+    },
+    "provider": "openrouter",
+    "model": "openai/gpt-4o-mini"
+  },
+  "openrouter::meta-llama/llama-3.1-8b-instruct": {
+    "reply": "**Explicación conceptual**\n\nLa odometría diferencial es un método de medición de desplazamiento utilizado en robots móviles de dos ruedas, como los robots de plataforma circular. Consiste en medir la rotación de las ruedas del robot para calcular la distancia recorrida y la dirección en que se ha movido el robot. La odometría diferencial se basa en el principio de que la velocidad lineal del robot es la suma de las velocidades angulares de las ruedas.\n\n**Ecuaciones básicas**\n\nSupongamos que el robot tiene dos ruedas con radios \\(r_1\\) y \\(r_2\\), y que la velocidad angular de la rueda 1 es \\(\\omega_1\\) y la velocidad angular de la rueda 2 es \\(\\omega_2\\). La velocidad lineal del robot es \\(v\\) y la dirección en que se ha movido es \\(\\theta\\).\n\nSe pueden establecer las siguientes ecuaciones:\n\n1. La velocidad lineal \\(v\\) se puede calcular como la suma de las velocidades angulares multiplicadas por el radio de las ruedas:\n\n\\[v = r_1 \\cdot \\omega_1 + r_2 \\cdot \\omega_2\\]\n\n2. La dirección \\(\\theta\\) se puede calcular mediante la diferencia de las velocidades angulares:\n\n\\[\\theta = \\ar",
+    "metrics": {
+      "wall_time_s": 2.47,
+      "prompt_tokens": 168,
+      "completion_tokens": 300,
+      "total_tokens": 468,
+      "tokens_per_second": 121.41
+    },
+    "provider": "openrouter",
+    "model": "meta-llama/llama-3.1-8b-instruct"
+  }
+}

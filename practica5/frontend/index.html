@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Práctica 5 — Ollama vs APIs externas</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Ollama local vs APIs externas (OpenRouter)</h1>
+
+  <label for="provider">Proveedor</label>
+  <select id="provider">
+    <option value="ollama">Ollama (local)</option>
+    <option value="openrouter">OpenRouter (externo)</option>
+  </select>
+
+  <label for="model">Modelo</label>
+  <input id="model" value="gemma3:4b">
+
+  <label for="message">Mensaje</label>
+  <textarea id="message" rows="3"></textarea>
+
+  <button id="send">Enviar</button>
+
+  <h2>Respuesta</h2>
+  <pre id="reply"></pre>
+
+  <h2>Métricas</h2>
+  <pre id="metrics"></pre>
+
+  <script src="app.js"></script>
+</body>
+</html>

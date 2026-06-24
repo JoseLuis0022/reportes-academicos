@@ -1,0 +1,134 @@
+[
+  {
+    "profile": "generico",
+    "prompt": "¿Qué es la inteligencia artificial?",
+    "reply": "La inteligencia artificial (IA) se refiere a la capacidad de las máquinas para imitar funciones cognitivas humanas, como el aprendizaje, el razonamiento y la resolución de problemas.\n",
+    "metrics": {
+      "wall_time_s": 5.76,
+      "prompt_tokens": 38,
+      "completion_tokens": 37,
+      "tokens_per_second": 50.72
+    }
+  },
+  {
+    "profile": "generico",
+    "prompt": "Dame consejos para estudiar mejor.",
+    "reply": "*   **Establece metas claras.**\n*   **Crea un horario de estudio.**\n*   **Encuentra un lugar tranquilo.**\n*   **Utiliza técnicas de estudio activas (resúmenes, preguntas).**\n*   **Haz descansos regulares.**",
+    "metrics": {
+      "wall_time_s": 1.7,
+      "prompt_tokens": 37,
+      "completion_tokens": 60,
+      "tokens_per_second": 48.67
+    }
+  },
+  {
+    "profile": "generico",
+    "prompt": "Explica qué es una API en términos simples.",
+    "reply": "Una API (Interfaz de Programación de Aplicaciones) es como un intermediario que permite que diferentes programas de software se comuniquen e intercambien información entre sí.\n\nImagina que eres un restaurante y otro programa es un cliente. La API es el menú, que te permite al cliente pedir lo que necesita y tu cocina prepara la comida.\n",
+    "metrics": {
+      "wall_time_s": 1.88,
+      "prompt_tokens": 41,
+      "completion_tokens": 71,
+      "tokens_per_second": 50.01
+    }
+  },
+  {
+    "profile": "docente",
+    "prompt": "Explícame qué es la transformada de Fourier para un estudiante de ingeniería.",
+    "reply": "¡Excelente pregunta! La Transformada de Fourier es una herramienta fundamental en muchas ramas de la ingeniería, y a menudo se le describe como una forma de \"descomponer\" una señal compleja en sus componentes individuales.  Vamos a desglosarlo con rigor académico y ejemplos prácticos:\n\n**1. Explicación Conceptual:**\n\nEn esencia, la Transformada de Fourier nos permite convertir una función del dominio del tiempo (o espacio) a su representación en el dominio de la frecuencia.  Imagina que tienes un sonido complejo, como una pieza musical. Este sonido es una combinación de muchas frecuencias diferentes (las notas individuales), cada una con una amplitud y fase específica. La Transformada de Fourier hace lo siguiente:\n\n* **Identifica las Frecuencias:** Determina qué frecuencias están presentes en la señal original.\n* **Cuantifica Amplitudes:**  Para cada frecuencia identificada, nos dice cuán fuerte (amplitud) está presente esa frecuencia en la señal original.\n* **Calcula la Fase:** Nos indica el desplazamiento de fase de cada componente de frecuencia. La fase es crucial porque determina cómo \"crece\" o \"decrece\" la amplitud de cada componente a lo largo del tiempo.\n\n**Formalmente:**\n\nLa Transformada de Fourier (en su forma más común, la Transformada de Fourier Continuo) se define como:\n\n* **F(ω) = ∫ f(t) * e^(-jωt) dt**\n\nDonde:\n    *  `F(ω)` es la transformada de Fourier de la señal `f(t)`.\n    *  `f(t)` es la señal original en el dominio del tiempo.\n    *  `ω` (omega) es la frecuencia angular (en radianes por segundo).\n    *  `j` es la unidad imaginaria (√-1).\n    *  `e^(-jωt)` es",
+    "metrics": {
+      "wall_time_s": 8.61,
+      "prompt_tokens": 93,
+      "completion_tokens": 400,
+      "tokens_per_second": 49.42
+    }
+  },
+  {
+    "profile": "docente",
+    "prompt": "¿Cómo le explicarías el concepto de entropía a un alumno de primer semestre?",
+    "reply": "¡Excelente pregunta! La entropía es uno de esos conceptos que parece complicado al principio, pero que en realidad tiene una lógica bastante intuitiva. Vamos a desglosarla paso a paso para que la entiendas bien.\n\n**Explicación Conceptual:**\n\nEn esencia, la entropía se puede entender como una medida del **desorden**, la **aleatoriedad** o la **dispersión de energía** en un sistema. No es simplemente \"ruido\", sino algo mucho más profundo y con implicaciones importantes en diversas disciplinas, desde la termodinámica hasta la teoría de la información. \n\nPiensa en esto:\n\n*   **Un cristal perfecto:** Si tienes un cristal de cuarzo perfectamente ordenado, donde cada átomo está en su lugar específico, ese sistema tiene una entropía *baja*. Hay poca aleatoriedad, mucha organización y previsibilidad.\n*   **Arena desparramada:** Ahora imagina esa arena.  Si la has estado removiendo, ha quedado desparramada de forma irregular. Esa es una situación con una entropía *alta*.  Hay muchas más posibles configuraciones para ese montón de arena que para el cristal ordenado. La energía (en este caso, la que aplicaste al removerla) se ha dispersado, aumentando el desorden.\n*   **El segundo principio de la termodinámica:** Este principio es crucial aquí. Dice que en cualquier proceso natural, la entropía total de un sistema aislado siempre aumenta o, como mucho, permanece constante.  Esto significa que los sistemas tienden espontáneamente hacia estados de mayor desorden.  Nunca verás arena que se organice sola para formar un cristal.\n\n**La clave está en las posibles microestados:** Un \"microestado\" es una descripción específica de la posición y el momento de cada partícula en un sistema. Hay muchísimos más microestados posibles que corresponden a estados de alta entropía (desorden) que a estados de",
+    "metrics": {
+      "wall_time_s": 8.69,
+      "prompt_tokens": 95,
+      "completion_tokens": 400,
+      "tokens_per_second": 49.08
+    }
+  },
+  {
+    "profile": "docente",
+    "prompt": "Da un ejemplo pedagógico para enseñar recursividad en programación.",
+    "reply": "¡Excelente pregunta! La recursividad puede ser un concepto desafiante al principio, pero con una analogía y un ejemplo concreto, se vuelve mucho más comprensible. Vamos a abordar la recursividad usando un escenario muy común: contar los escalones de una escalera.\n\n**Explicación Conceptual: Recursividad – El Espejo**\n\nLa recursividad en programación es como usar un espejo para ver algo que está más allá de tu alcance directo.  Imagina que quieres alcanzar el último escalón de una escalera larga. Podrías intentar subir cada escalón uno por uno, pero eso sería tedioso y probablemente agotador. En cambio, puedes utilizar un pequeño espejo para reflejar el siguiente escalón que debes subir. Al ver ese escalón reflejado en el espejo, lo usas como referencia para subir al siguiente.\n\nEn términos de programación, la recursividad implica que una función se llama a sí misma para resolver una versión más pequeña del mismo problema.  Cada llamada a la función es como un \"espejo\" que te ayuda a acercarte a la solución final. \n\n**Elementos Clave de la Recursividad:**\n\n*   **Caso Base (Base Case):** Es el punto de parada para la recursión. Sin un caso base, la función se llamaría a sí misma infinitamente, causando un error (Stack Overflow). En nuestro ejemplo de la escalera, el caso base sería llegar al último escalón (donde ya no hay más pasos que dar).\n*   **Caso Recursivo (Recursive Case):** Es donde la función se llama a sí misma con una entrada modificada, acercándonos gradualmente al caso base.  En la escalera, el caso recursivo sería \"subir un escalón y luego llamar a la función de nuevo para contar los escalones restantes\".\n\n**Ejemplo Pedagógico: Cálculo del Número de Escalones en una Escalaría (Recursivamente)**\n\nVamos a escribir una función",
+    "metrics": {
+      "wall_time_s": 9.7,
+      "prompt_tokens": 90,
+      "completion_tokens": 400,
+      "tokens_per_second": 43.65
+    }
+  },
+  {
+    "profile": "robotica",
+    "prompt": "Explícame qué es la odometría diferencial y dame un ejemplo para estudiantes de primer semestre",
+    "reply": "¡Excelente pregunta! La odometría diferencial es una técnica fundamental en robótica móvil, especialmente para vehículos autónomos, que nos permite estimar nuestra posición relativa utilizando información de sensores integrados. Es una forma robusta y relativamente sencilla de navegación, aunque tiene sus limitaciones.\n\n**Explicación Conceptual:**\n\nLa idea central detrás de la odometría diferencial es muy simple: si tienes dos ruedas que giran sobre un eje común, la diferencia en su velocidad angular (la \"velocidad diferencial\") está directamente relacionada con la dirección en la que el robot se está moviendo.  Imagina una bicicleta: cuando giras a la izquierda, la rueda delantera gira más rápido que la trasera. Al medir esta diferencia de velocidad y conocer la geometría del vehículo, podemos deducir nuestra orientación y movimiento.\n\n**Ecuaciones Básicas:**\n\n* **Definición de la Velocidad Diferencial (ωd):**\n   ωd = ω izquierda - ω derecha\n   Donde:\n     * ωizquierda es la velocidad angular de la rueda izquierda.\n     * ωderecha es la velocidad angular de la rueda derecha.\n\n* **Relación entre Velocidad Angular y Velocidad Lineal (v):**\n    v = ωd * r \n   Donde:\n      * v es la velocidad lineal del robot.\n      * r es el radio del vehículo, que en un caso simple como una rueda puede ser aproximado al radio de la rueda.\n\n* **Estimación de la Orientación (θ):**  Aquí es donde se complica un poco. La odometría diferencial *no* nos da directamente la orientación. Necesitamos incorporar información adicional para corregir el \"drift\" (desplazamiento acumulativo) que se produce por pequeñas imperfecciones en las ruedas y la superficie sobre la que avanzamos.  Una forma simple de hacerlo es utilizando un ángulo de corrección θ:\n\n    θ = θ",
+    "metrics": {
+      "wall_time_s": 8.77,
+      "prompt_tokens": 125,
+      "completion_tokens": 400,
+      "tokens_per_second": 48.85
+    }
+  },
+  {
+    "profile": "robotica",
+    "prompt": "¿Qué es un PID y cómo se aplica al control de un robot móvil?",
+    "reply": "¡Excelente pregunta! El Control Proporcional Integral Derivativo (PID) es, sin duda, uno de los algoritmos de control más utilizados en robótica móvil y mecatrónica. Es la base para controlar muchos sistemas dinámicos, desde la temperatura de una estufa hasta la dirección de un vehículo autónomo.  Vamos a desglosarlo:\n\n**Explicación Conceptual:**\n\nLa idea central del PID es mantener una variable de control (por ejemplo, la posición deseada de un robot) lo más cerca posible de un valor deseado (el \"setpoint\"). Para lograr esto, el controlador PID utiliza tres términos distintos que se combinan para generar una señal de control:\n\n*   **Proporcional (P):** Este término es proporcional al *error*, que es la diferencia entre el setpoint y la variable actual. Cuanto mayor sea el error, mayor será la corrección aplicada.  Piensa en ello como “corrección directa”.\n*   **Integral (I):** Este término acumula el error a lo largo del tiempo.  Esto ayuda a eliminar errores de estado estacionario (es decir, cuando el sistema alcanza un punto estable pero no está exactamente donde queremos). El término integral intenta corregir los efectos acumulados del error.\n*   **Derivativo (D):** Este término responde a la *tasa de cambio* del error.  Si el error está cambiando rápidamente, el término derivativo aplicará una corrección más fuerte para amortiguar movimientos bruscos y mejorar la estabilidad del sistema. Piensa en ello como “anticipación”.\n\n**Ecuaciones Básicas:**\n\nLa señal de control (u(t)) producida por un controlador PID se calcula con la siguiente ecuación:\n\n```\nu(t) = Kp * e(t) + Ki * ∫e(τ)dτ + Kd * de(t)/dt\n```\n\nDonde:",
+    "metrics": {
+      "wall_time_s": 8.8,
+      "prompt_tokens": 122,
+      "completion_tokens": 400,
+      "tokens_per_second": 48.62
+    }
+  },
+  {
+    "profile": "robotica",
+    "prompt": "Explica la diferencia entre un sensor ultrasónico y un LIDAR en robótica móvil.",
+    "reply": "¡Excelente pregunta! La elección entre sensores ultrasónicos y LiDAR es una decisión fundamental al diseñar un robot móvil, y entender las diferencias clave te permitirá tomar la mejor opción para tu aplicación. Como ingeniero especializado en sistemas embebidos y control, vamos a desglosarlo de forma detallada:\n\n**Explicación Conceptual:**\n\nTanto los sensores ultrasónicos como los LiDAR (Light Detection and Ranging) se utilizan para la percepción del entorno, es decir, para que un robot \"vea\" su alrededor. La diferencia principal radica en cómo lo hacen:\n\n* **Sensores Ultrasónicos:** Funcionan emitiendo pulsos de ultrasonido (sonidos de alta frecuencia inaudibles para el oído humano) y midiendo el tiempo que tarda el sonido reflejado al regresar al sensor.  La distancia se calcula a partir de la velocidad del sonido en el medio (normalmente aire) y del tiempo de viaje del pulso. Piensa en un sonar, pero en miniatura.\n* **LiDAR:** Utilizan pulsos láser para medir distancias. Un haz de luz láser se emite y se mide el tiempo que tarda la luz reflejada en regresar al sensor.  Al igual que con los ultrasonidos, este tiempo permite calcular la distancia. La principal diferencia es que el láser utiliza ondas electromagnéticas en lugar de ondas sonoras, lo que le confiere algunas ventajas cruciales.\n\n**Ecuaciones Básicas:**\n\n* **Distancia (d) con Sensor Ultrasónico:**\n   `d = (v * t) / 2`\n    * `d`: Distancia al objeto.\n    * `v`: Velocidad del sonido en el aire (aproximadamente 343 m/s a temperatura ambiente).\n    * `t`: Tiempo de viaje del pulso ultrasónico.  El factor 1/2 es necesario porque la ecuación calcula la distancia al punto donde el pulso salió",
+    "metrics": {
+      "wall_time_s": 8.89,
+      "prompt_tokens": 124,
+      "completion_tokens": 400,
+      "tokens_per_second": 48.6
+    }
+  },
+  {
+    "profile": "programacion",
+    "prompt": "Escribe una función en Python que invierta una lista sin usar reversed().",
+    "reply": "```python\ndef invertir_lista(lista):\n  \"\"\"Invierte una lista en Python sin utilizar la función reversed().\n\n  Args:\n    lista: La lista que se va a invertir.\n\n  Returns:\n    Una nueva lista con los elementos de la lista original en orden inverso.\n  \"\"\"\n  nueva_lista = []\n  for i in range(len(lista) - 1, -1, -1):\n    nueva_lista.append(lista[i])\n  return nueva_lista\n```\n\n**Explicación:**\n\nLa función `invertir_lista` crea una nueva lista llamada `nueva_lista`.  Luego, itera a través de la lista original usando un bucle `for`, comenzando desde el último elemento (índice `len(lista) - 1`) y terminando en el primer elemento (índice 0), decrementando el índice en 1 en cada iteración (`-1`).  En cada iteración, el elemento actual de la lista original se agrega a `nueva_lista` usando `append()`. Finalmente, la función devuelve `nueva_lista`, que contiene los elementos de la lista original en orden inverso.\n",
+    "metrics": {
+      "wall_time_s": 5.68,
+      "prompt_tokens": 98,
+      "completion_tokens": 253,
+      "tokens_per_second": 49.22
+    }
+  },
+  {
+    "profile": "programacion",
+    "prompt": "¿Cuál es la diferencia entre una lista y una tupla en Python?",
+    "reply": "```python\n# Las listas son mutables, lo que significa que puedes cambiar sus elementos después de crearlas.\n# Se definen usando corchetes [].\n\nmi_lista = [1, 2, 3]\nmi_lista[0] = 10  # Esto es válido porque las listas son mutables\nprint(mi_lista) # Output: [10, 2, 3]\n\n\n# Las tuplas son inmutables, lo que significa que no puedes cambiar sus elementos después de crearlas.\n# Se definen usando paréntesis ().\n\nmi_tupla = (1, 2, 3)\n# mi_tupla[0] = 10  # Esto generaría un error porque las tuplas son inmutables\n\nprint(mi_tupla) # Output: (1, 2, 3)\n\n\n# En resumen:\n# - Las listas son más flexibles y se usan cuando necesitas modificar la colección de datos.\n# - Las tuplas son más eficientes en términos de memoria y se usan cuando quieres asegurar que los datos no cambien accidentalmente.  También pueden ser usadas como claves en diccionarios (las listas no).\n```\n\n**Explicación:**\n\nLa principal diferencia radica en su mutabilidad. Una lista puede ser modificada después de su creación (agregar, eliminar o cambiar elementos), mientras que una tupla es inmutable; sus valores no pueden ser cambiados una vez que se ha creado la tupla.  Esta inmutabilidad tiene implicaciones importantes para el rendimiento y el uso como claves en estructuras de datos (diccionarios).\n",
+    "metrics": {
+      "wall_time_s": 7.56,
+      "prompt_tokens": 98,
+      "completion_tokens": 344,
+      "tokens_per_second": 48.81
+    }
+  },
+  {
+    "profile": "programacion",
+    "prompt": "Corrige este código: def suma(a,b) return a+b",
+    "reply": "```python\ndef suma(a, b):\n  \"\"\"Devuelve la suma de dos números.\"\"\"\n  return a + b\n```\n\nLa función estaba bien, pero agregué un docstring para explicar su propósito.\n",
+    "metrics": {
+      "wall_time_s": 1.49,
+      "prompt_tokens": 99,
+      "completion_tokens": 48,
+      "tokens_per_second": 49.62
+    }
+  }
+]
