@@ -24,6 +24,12 @@ Cada práctica documenta experimentos reales con modelos de lenguaje grande (LLM
 
 ---
 
+## Proyecto
+
+**[TORQUE](practica-proyecto/)** — Sistema operativo de IA multiagente que administra la operación diaria de un taller mecánico por WhatsApp (texto, voz y fotografía): decide qué acción tomar, la ejecuta sobre los datos del negocio y vigila el taller de forma proactiva. Implementado en **n8n** con un agente orquestador, roles por número de teléfono, ingeniería de prompts por agente y un loop agéntico con límite de iteraciones. [Ver documentación completa de arquitectura →](practica-proyecto/)
+
+---
+
 ## Modelos utilizados
 
 | Modelo | Parámetros | Fabricante |
@@ -46,4 +52,5 @@ Cada práctica documenta experimentos reales con modelos de lenguaje grande (LLM
 - [Práctica 4 – Copilotos especializados con Ollama](practica4/)
 - [Práctica 5 – APIs LLM externas vs Ollama](practica5/)
 - [Práctica 6 – Evaluación de arquitecturas LLM + MQTT](practica6/)
+- [Proyecto – TORQUE: Sistema Operativo de IA para Talleres Mecánicos](practica-proyecto/)
 - [Uso de IA en este sitio](uso-ia/)

@@ -254,6 +254,33 @@ a:focus-visible        { outline: 3px solid var(--gold-l); outline-offset: 3px; 
 .main-content blockquote p { max-width: none; }
 
 /* ═══════════════════════════════════════════════════════════
+   STAT BOX — número destacado en grande
+   ═══════════════════════════════════════════════════════════ */
+.main-content .stat-box {
+  background: var(--g-badge);
+  border-radius: 12px;
+  padding: var(--sp-5) var(--sp-6);
+  margin: var(--sp-5) 0;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+.main-content .stat-box .stat-number {
+  display: block;
+  font-size: clamp(2rem, 7vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.1;
+  color: #fff !important;
+  letter-spacing: -0.02em;
+}
+.main-content .stat-box .stat-label {
+  display: block;
+  margin-top: var(--sp-2);
+  font-size: clamp(0.85rem, 2vw, 1rem);
+  font-weight: 500;
+  color: rgba(255,255,255,0.9) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════
    CHECKLISTS
    ═══════════════════════════════════════════════════════════ */
 .main-content input[type="checkbox"] {

@@ -10,6 +10,11 @@ nav_order: 2
 **Integrantes:** Jose Luis Macedo Escamilla · Fernanda Torres Abaroa · Alfredo José Mérida López  
 **Fecha:** 1 de junio de 2026
 
+<div class="stat-box">
+  <span class="stat-number">900 iteraciones</span>
+  <span class="stat-label">300 iteraciones por cada prueba realizada para llegar al resultado final</span>
+</div>
+
 ---
 
 ## 1. Verificación de la instalación

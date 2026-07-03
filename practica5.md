@@ -84,6 +84,11 @@ Se extendió el backend de la Práctica 4 con un parámetro `provider` (`ollama`
 
 Datos crudos completos en [`practica5/comparison_results.json`](practica5/comparison_results.json).
 
+<div class="stat-box">
+  <span class="stat-number">$0.005 USD</span>
+  <span class="stat-label">Costo total de la prueba comparativa vía OpenRouter (modelos pagados: <code>gpt-4o-mini</code> — 435 tokens — y <code>meta-llama/llama-3.1-8b-instruct</code> — 468 tokens. <code>gemma3:4b</code> en Ollama local: $0.00, sin costo por ejecutarse en el equipo propio.)</span>
+</div>
+
 ---
 
 ## 6. Reflexión comparativa
@@ -123,3 +128,5 @@ Inestable en cuanto a corrección técnica: con parámetros idénticos, dos de l
 ## 7. Conclusiones
 
 La comparación confirma que la elección de proveedor no es solo una decisión de costo o privacidad: en contenido técnico con ecuaciones, hubo diferencias reales de corrección entre modelos del mismo orden de tamaño (4B–8B), independientemente de si corrían local o en la nube. OpenRouter resultó práctico como gateway único para probar múltiples modelos sin reescribir integraciones, validando la decisión de plataforma tomada en la Práctica 2 para el proyecto final del curso.
+
+**Costo:** la prueba comparativa completa vía OpenRouter (`gpt-4o-mini` + `meta-llama/llama-3.1-8b-instruct`) tuvo un costo total de **$0.005 USD**, frente a $0.00 de `gemma3:4b` ejecutado localmente con Ollama. Para un solo prompt de prueba el costo es marginal, pero a escala de producción (miles de solicitudes) esa diferencia por token es exactamente el factor que justifica evaluar un modelo local para cargas de trabajo de alto volumen y externo solo cuando se necesita la máxima precisión técnica.
