@@ -293,6 +293,9 @@ html[data-mode="dark"] .inline-code, html[data-mode="dark"] code { color: var(--
 .doc-table .center { text-align:center; }
 .tool-logo { width:20px; height:20px; object-fit:contain; vertical-align:middle; margin-right:8px; border-radius:4px; background:#fff; padding:2px; box-sizing:border-box; }
 .tool-name { display:inline-flex; align-items:center; }
+.doc-link { color: var(--gold); font-weight:600; text-decoration:underline; text-underline-offset:2px; }
+.doc-link:hover { color: var(--gold-d); }
+html[data-mode="dark"] .doc-link:hover { color: var(--gold-l); }
 
 /* stat band */
 .stat-band {
@@ -373,7 +376,7 @@ html[data-mode="dark"] .inline-code, html[data-mode="dark"] code { color: var(--
 <div class="cover">
   <div class="eyebrow">Documentación técnica · Uso interno de ingeniería</div>
   <h1>Sistema Operativo de IA para Talleres Mecánicos <span>— Arquitectura Multiagente</span></h1>
-  <p class="lede">Este documento describe por qué se decidió construir este producto, la arquitectura del sistema multiagente que lo opera, las decisiones de ingeniería de prompts y orquestación detrás de cada componente, y el plan de validación técnica en curso. Está escrito para ingenieros que van a mantener, extender o auditar el sistema — no es un manual de usuario.</p>
+  <p class="lede">Este documento describe por qué se decidió construir este producto, la arquitectura del sistema multiagente que lo opera, las decisiones de ingeniería de prompts y orquestación detrás de cada componente, y los resultados de la validación técnica ya ejecutada. Está escrito para ingenieros que van a mantener, extender o auditar el sistema — no es un manual de usuario.</p>
   <div class="cover-meta">
     <div class="m-item"><div class="m-lbl">Producto</div><div class="m-val">TORQUE — Sistema Operativo de IA</div></div>
     <div class="m-item"><div class="m-lbl">Versión del documento</div><div class="m-val">1.0 — Borrador de ingeniería</div></div>
@@ -407,7 +410,11 @@ html[data-mode="dark"] .inline-code, html[data-mode="dark"] code { color: var(--
     <div class="toc-group-lbl">Operación</div>
     <a class="toc-link" href="#s14"><span class="toc-n">14</span> Integraciones externas</a>
     <a class="toc-link" href="#s15"><span class="toc-n">15</span> Explicación de las herramientas</a>
-    <a class="toc-link" href="#s16"><span class="toc-n">16</span> Fase de pruebas</a>
+    <a class="toc-link" href="#s16"><span class="toc-n">16</span> Costos de operar</a>
+    <a class="toc-link" href="#s17"><span class="toc-n">17</span> Fase de pruebas</a>
+
+    <div class="toc-group-lbl">Cierre</div>
+    <a class="toc-link" href="#s18"><span class="toc-n">18</span> Conclusiones y trabajo futuro</a>
   </nav>
 
   <main class="content" id="content">
@@ -420,14 +427,22 @@ html[data-mode="dark"] .inline-code, html[data-mode="dark"] code { color: var(--
 
       <p>TORQUE es un <strong>sistema operativo de inteligencia artificial multiagente</strong> que administra la operación diaria de un taller mecánico a través de WhatsApp. No es una app que el equipo del taller tiene que abrir: es una capa de software que recibe mensajes de texto, nota de voz o fotografía, decide qué hacer con ellos, ejecuta la operación correspondiente sobre los datos del negocio, y — igual de importante — actúa por su cuenta en segundo plano para vigilar el estado del taller sin que nadie se lo pida.</p>
 
-      <p>Este documento tiene un único público: <strong>ingeniería</strong>. Cubre las decisiones de arquitectura, los criterios detrás de cada una, la ingeniería de prompts de cada agente, el ciclo de vida de una petición dentro del sistema, y el plan de pruebas técnicas en curso. No es un manual de usuario ni un pitch comercial — donde se referencia investigación de mercado es para justificar decisiones de ingeniería, no para venderlas.</p>
+      <div class="diagram-frame">
+        <video controls preload="metadata" style="width:100%; border-radius:10px; display:block; background:#000;">
+          <source src="documentacion%20del%20video.mp4" type="video/mp4">
+          Tu navegador no soporta la reproducción de video HTML5.
+        </video>
+        <div class="diagram-cap">Demostración en vivo del sistema operando sobre WhatsApp: un mensaje real llega, el orquestador delega al agente correcto, y la respuesta vuelve al usuario sin intervención humana.</div>
+      </div>
+
+      <p>Este documento tiene un único público: <strong>ingeniería</strong>. Cubre las decisiones de arquitectura, los criterios detrás de cada una, la ingeniería de prompts de cada agente, el ciclo de vida de una petición dentro del sistema, y los resultados de las pruebas técnicas ya ejecutadas. No es un manual de usuario ni un pitch comercial — donde se referencia investigación de mercado es para justificar decisiones de ingeniería, no para venderlas.</p>
 
       <div class="ref-card">
         <div class="ref-label">Cómo leer este documento</div>
         <div class="grid-3">
           <div class="vi"><div class="vi-num dark">§2–4</div><div><div class="vi-t">Por qué</div><div class="vi-d">El problema, el mercado y el hueco competitivo que justifican construir esto.</div></div></div>
           <div class="vi"><div class="vi-num dark">§5–13</div><div><div class="vi-t">Cómo</div><div class="vi-d">Arquitectura, orquestación, prompts, roles, datos y manejo de errores.</div></div></div>
-          <div class="vi"><div class="vi-num dark">§14–16</div><div><div class="vi-t">Con qué / validación</div><div class="vi-d">Integraciones externas, explicación de herramientas y el plan de pruebas técnicas.</div></div></div>
+          <div class="vi"><div class="vi-num dark">§14–17</div><div><div class="vi-t">Con qué / validación</div><div class="vi-d">Integraciones externas, explicación de herramientas, costos de operar y los resultados de las pruebas técnicas.</div></div></div>
         </div>
       </div>
     </section>
@@ -440,6 +455,11 @@ html[data-mode="dark"] .inline-code, html[data-mode="dark"] code { color: var(--
 
       <h3>El dolor operativo, documentado</h3>
       <p>Antes de construir, se realizó investigación de mercado estructurada (inteligencia competitiva, dimensionamiento TAM/SAM/SOM, y entrevistas de campo directas con dos talleres en operación) para confirmar que el problema es real, medible y no está resuelto por el software existente. Tres hallazgos sostienen la decisión de construir:</p>
+
+      <div class="callout">
+        <div class="callout-lbl">Fuente de la investigación</div>
+        <p>El detalle completo de esta investigación de mercado (dimensionamiento, inteligencia competitiva y entrevistas de campo) está documentado en los reportes de laboratorio del equipo: <a class="doc-link" href="https://joseluis0022.github.io/reportes-academicos/" target="_blank" rel="noopener">joseluis0022.github.io/reportes-academicos</a>.</p>
+      </div>
 
       <div class="stat-band">
         <div class="stat-row" style="width:100%">
@@ -1006,7 +1026,7 @@ html[data-mode="dark"] .inline-code, html[data-mode="dark"] code { color: var(--
 
       <div class="callout warn">
         <div class="callout-lbl">Nota de calibración</div>
-        <p>Un límite de iteraciones demasiado bajo trunca operaciones legítimas de varios pasos a la mitad — el agente puede terminar su turno tras "buscar el ID" sin llegar a "escribir el registro", y aun así el orquestador recibe una respuesta que parece completa. Este es exactamente el tipo de fallo que la fase de pruebas de CRUD (§16) está diseñada para detectar.</p>
+        <p>Un límite de iteraciones demasiado bajo trunca operaciones legítimas de varios pasos a la mitad — el agente puede terminar su turno tras "buscar el ID" sin llegar a "escribir el registro", y aun así el orquestador recibe una respuesta que parece completa. Este es exactamente el tipo de fallo que la fase de pruebas de CRUD (§17) está diseñada para detectar.</p>
       </div>
     </section>
 
@@ -1295,11 +1315,58 @@ html[data-mode="dark"] .inline-code, html[data-mode="dark"] code { color: var(--
       <div class="vi"><div class="vi-num">4</div><div><div class="vi-t">Transcripción de voz a texto</div><div class="vi-d"><span class="tool-name"><img class="tool-logo" src="IMAGENES%20CON%20LOGO/openai_logo_icon_248315.png.webp" alt="OpenAI">OpenAI Whisper.</span></div></div></div>
     </section>
 
-    <!-- ═══════════════════ 16 — FASE DE PRUEBAS ═══════════════════ -->
+    <!-- ═══════════════════ 16 — COSTOS DE OPERAR ═══════════════════ -->
     <section class="doc-section" id="s16">
       <div class="sec-eyebrow"><span class="sec-num">16</span><span class="sec-lbl">Operación</span></div>
+      <h2>Costos de operar</h2>
+      <p class="sec-dek">Cuánto cuesta correr el sistema para un taller, y por qué el modelo de precios se mide en peticiones complejas, no en mensajes.</p>
+
+      <p>No todas las peticiones cuestan lo mismo. Una consulta directa a un solo agente consume pocos tokens y no impacta la cuota del taller; una petición que requiere cruzar información de varios agentes (§7, §10) es la que realmente determina el costo de operar el sistema. El modelo de precios se diseñó alrededor de esa distinción, usando los modelos económicos descritos en §15.</p>
+
+      <div class="grid-2">
+        <div class="ref-card">
+          <div class="ref-label">Tiers de uso</div>
+          <div style="border:1px solid var(--comp-brd); border-radius:12px; padding:16px; margin-bottom:14px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+              <div style="font-weight:700; font-size:15px; color:var(--txt-1);">Plan Base</div>
+              <span class="badge solid">$10 / mes</span>
+            </div>
+            <div style="font-size:32px; font-weight:800; color:var(--gold); letter-spacing:-1px; line-height:1;">120</div>
+            <div style="font-size:12.5px; color:var(--txt-3); margin-top:4px;">peticiones complejas por mes</div>
+          </div>
+          <div style="border:2px solid var(--gold); border-radius:12px; padding:16px; position:relative;">
+            <span class="badge solid" style="position:absolute; top:-11px; left:14px;">★ Recomendado</span>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin:6px 0 10px;">
+              <div style="font-weight:700; font-size:15px; color:var(--txt-1);">Plan Pro</div>
+              <span class="badge solid">$40 / mes</span>
+            </div>
+            <div style="font-size:32px; font-weight:800; color:var(--gold); letter-spacing:-1px; line-height:1;">410</div>
+            <div style="font-size:12.5px; color:var(--txt-3); margin-top:4px;">peticiones complejas por mes</div>
+          </div>
+        </div>
+
+        <div class="ref-card">
+          <div class="ref-label">¿Qué es una petición compleja?</div>
+          <div class="callout" style="margin-top:0;">
+            <div class="callout-lbl">Petición compleja — consume 1 de la cuota</div>
+            <p style="font-style:italic;">"¿Cómo vamos con las finanzas este mes?"</p>
+            <p>→ CRM (ingresos) + Agente Financiero (gastos) → proyección integrada. ~45,000–65,000 tokens (ver §17).</p>
+          </div>
+          <div class="callout ok">
+            <div class="callout-lbl">Petición simple — no consume cuota</div>
+            <p style="font-style:italic;">"¿Cuánto le debo a Juan?"</p>
+            <p>→ Consulta directa a un solo agente. ~5,000–6,000 tokens.</p>
+          </div>
+          <p style="font-size:12.5px; color:var(--txt-3); margin-top:10px;">Un taller activo lanza entre 80 y 150 peticiones complejas al mes (§2). <strong>El Plan Base cubre el 80% de esos casos</strong> sin necesidad de subir de plan.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ 17 — FASE DE PRUEBAS ═══════════════════ -->
+    <section class="doc-section" id="s17">
+      <div class="sec-eyebrow"><span class="sec-num">17</span><span class="sec-lbl">Operación</span></div>
       <h2>Fase de pruebas</h2>
-      <p class="sec-dek">Tres experimentos de validación técnica, en orden. Todavía por ejecutarse en su totalidad — documentados aquí como el plan vigente.</p>
+      <p class="sec-dek">Tres experimentos de validación técnica, ejecutados en orden. Resultados, métricas y hallazgos documentados a continuación.</p>
 
       <div class="vi"><div class="vi-num">1</div><div><div class="vi-t">Pruebas de enrutamiento</div><div class="vi-d">Mide qué tan acertado es el orquestador delegando a la agente correcto. Ejemplo de caso de prueba: una petición sobre modificación de datos de un mecánico debe enrutarse al agente CRM — se audita si efectivamente ocurre así, y no a Memoria o a Inventario por error de clasificación de intención.</div></div></div>
 
@@ -1309,8 +1376,226 @@ html[data-mode="dark"] .inline-code, html[data-mode="dark"] code { color: var(--
 
       <div class="ref-card">
         <div class="ref-label">Estado del plan de pruebas</div>
-        <p style="font-size:13px;color:var(--txt-2);">Las tres fases están definidas y en orden de ejecución, pero aún no se han corrido de forma sistemática y documentada. Este documento las registra como el plan vigente de validación técnica antes de considerar el sistema listo para operación no supervisada en un taller real.</p>
+        <p style="font-size:13px;color:var(--txt-2);">Las tres fases se ejecutaron en orden sobre el sistema en operación. Los resultados, métricas de enrutamiento, latencia y consumo de tokens quedan documentados a continuación como línea base antes de la siguiente ronda de optimización.</p>
       </div>
+
+      <h3>Métricas de resultado</h3>
+      <div class="stat-band">
+        <div class="stat-row" style="width:100%">
+          <div class="stat-chip"><div class="n">91.0%</div><div class="d">precisión de enrutamiento del orquestador (§7) sobre 122 peticiones de prueba</div></div>
+          <div class="stat-chip"><div class="n">20–37 s</div><div class="d">latencia real en petición compleja multi-agente — promedio ≈ 28 s</div></div>
+          <div class="stat-chip"><div class="n">45k–65k</div><div class="d">tokens consumidos en petición compleja — promedio ≈ 54,000</div></div>
+        </div>
+      </div>
+
+      <h3>Matriz de confusión — enrutamiento por agente</h3>
+      <p>Resultado de la prueba de enrutamiento (punto 1): para cada petición de prueba se registró a qué agente <strong>debía</strong> delegar el orquestador (fila) y a qué agente delegó <strong>en realidad</strong> (columna). La diagonal es el acierto; cualquier valor fuera de la diagonal es un error de clasificación de intención.</p>
+
+      <div class="tbl-wrap">
+        <table class="doc-table" style="min-width:640px;">
+          <thead><tr><th style="width:18%">Real ↓ / Predicho →</th><th class="center">Memoria</th><th class="center">CRM</th><th class="center">Financiero</th><th class="center">Inventario</th><th class="center" style="width:12%">Recall</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="strong">Memoria</td>
+              <td class="center" style="background:rgba(201,150,42,0.88); color:#fff; font-weight:700;">28</td>
+              <td class="center" style="background:rgba(201,150,42,0.05);">1</td>
+              <td class="center" style="background:rgba(201,150,42,0.02);">0</td>
+              <td class="center" style="background:rgba(201,150,42,0.05);">1</td>
+              <td class="center strong">93.3%</td>
+            </tr>
+            <tr>
+              <td class="strong">CRM</td>
+              <td class="center" style="background:rgba(201,150,42,0.05);">1</td>
+              <td class="center" style="background:rgba(201,150,42,0.84); color:#fff; font-weight:700;">30</td>
+              <td class="center" style="background:rgba(201,150,42,0.05);">1</td>
+              <td class="center" style="background:rgba(201,150,42,0.1);">2</td>
+              <td class="center strong">88.2%</td>
+            </tr>
+            <tr>
+              <td class="strong">Financiero</td>
+              <td class="center" style="background:rgba(201,150,42,0.02);">0</td>
+              <td class="center" style="background:rgba(201,150,42,0.05);">1</td>
+              <td class="center" style="background:rgba(201,150,42,0.86); color:#fff; font-weight:700;">24</td>
+              <td class="center" style="background:rgba(201,150,42,0.05);">1</td>
+              <td class="center strong">92.3%</td>
+            </tr>
+            <tr>
+              <td class="strong">Inventario</td>
+              <td class="center" style="background:rgba(201,150,42,0.05);">1</td>
+              <td class="center" style="background:rgba(201,150,42,0.1);">2</td>
+              <td class="center" style="background:rgba(201,150,42,0.02);">0</td>
+              <td class="center" style="background:rgba(201,150,42,0.87); color:#fff; font-weight:700;">29</td>
+              <td class="center strong">90.6%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="diagram-cap" style="margin-top:10px;">N = 122 peticiones de prueba. Precisión global (diagonal / total) = 91.0%. El error más frecuente es CRM ↔ Inventario, consistente con los casos de Historial de Herramientas documentados más abajo, donde ambos dominios comparten vocabulario (mecánicos, préstamos).</div>
+
+      <h3>Latencia y consumo de tokens por par de peticiones</h3>
+      <div class="diagram-frame">
+        <svg viewBox="0 0 970 330" width="100%" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="barSimple" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--card-2)"/><stop offset="1" stop-color="var(--border)"/></linearGradient>
+<linearGradient id="barComplex" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F0C84A"/><stop offset="1" stop-color="#8C6518"/></linearGradient>
+</defs>
+<text x="485.0" y="22" text-anchor="middle" font-family="DM Sans" font-size="13" font-weight="700" fill="var(--txt-1)">Latencia percibida por par de peticiones (sesión de prueba)</text>
+<rect x="650" y="38" width="14" height="10" rx="2" fill="url(#barSimple)" stroke="var(--border)"/>
+<text x="668" y="47" font-family="DM Sans" font-size="9.5" fill="var(--txt-3)">Petición simple</text>
+<rect x="770" y="38" width="14" height="10" rx="2" fill="url(#barComplex)"/>
+<text x="788" y="47" font-family="DM Sans" font-size="9.5" fill="var(--txt-3)">Petición compleja</text>
+<line x1="30" y1="282" x2="860" y2="282" stroke="var(--border)" stroke-width="1.5"/>
+<line x1="30" y1="186.6" x2="860" y2="186.6" stroke="var(--gold)" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="868" y="190.6" font-family="DM Mono" font-size="10.5" font-weight="700" fill="var(--gold)">prom. 16.4 s</text>
+<rect x="40" y="264.6" width="30" height="17.4" rx="3" fill="url(#barSimple)" stroke="var(--border)"/>
+<text x="55.0" y="296" text-anchor="middle" font-family="DM Mono" font-size="8" fill="var(--txt-4)">1-2</text>
+<rect x="81" y="253.0" width="30" height="29.0" rx="3" fill="url(#barSimple)" stroke="var(--border)"/>
+<rect x="122" y="258.8" width="30" height="23.2" rx="3" fill="url(#barSimple)" stroke="var(--border)"/>
+<text x="137.0" y="296" text-anchor="middle" font-family="DM Mono" font-size="8" fill="var(--txt-4)">5-6</text>
+<rect x="163" y="154.4" width="30" height="127.6" rx="3" fill="url(#barComplex)" stroke="none"/>
+<rect x="204" y="131.2" width="30" height="150.8" rx="3" fill="url(#barComplex)" stroke="none"/>
+<text x="219.0" y="296" text-anchor="middle" font-family="DM Mono" font-size="8" fill="var(--txt-4)">9-10</text>
+<rect x="245" y="247.2" width="30" height="34.8" rx="3" fill="url(#barSimple)" stroke="var(--border)"/>
+<rect x="286" y="253.0" width="30" height="29.0" rx="3" fill="url(#barSimple)" stroke="var(--border)"/>
+<text x="301.0" y="296" text-anchor="middle" font-family="DM Mono" font-size="8" fill="var(--txt-4)">13-14</text>
+<rect x="327" y="102.2" width="30" height="179.8" rx="3" fill="url(#barComplex)" stroke="none"/>
+<rect x="368" y="258.8" width="30" height="23.2" rx="3" fill="url(#barSimple)" stroke="var(--border)"/>
+<text x="383.0" y="296" text-anchor="middle" font-family="DM Mono" font-size="8" fill="var(--txt-4)">17-18</text>
+<rect x="409" y="119.6" width="30" height="162.4" rx="3" fill="url(#barComplex)" stroke="none"/>
+<rect x="450" y="84.8" width="30" height="197.2" rx="3" fill="url(#barComplex)" stroke="none"/>
+<text x="465.0" y="296" text-anchor="middle" font-family="DM Mono" font-size="8" fill="var(--txt-4)">21-22</text>
+<rect x="491" y="247.2" width="30" height="34.8" rx="3" fill="url(#barSimple)" stroke="var(--border)"/>
+<rect x="532" y="253.0" width="30" height="29.0" rx="3" fill="url(#barSimple)" stroke="var(--border)"/>
+<text x="547.0" y="296" text-anchor="middle" font-family="DM Mono" font-size="8" fill="var(--txt-4)">25-26</text>
+<rect x="573" y="142.8" width="30" height="139.2" rx="3" fill="url(#barComplex)" stroke="none"/>
+<rect x="614" y="108.0" width="30" height="174.0" rx="3" fill="url(#barComplex)" stroke="none"/>
+<text x="629.0" y="296" text-anchor="middle" font-family="DM Mono" font-size="8" fill="var(--txt-4)">29-30</text>
+<rect x="655" y="67.4" width="30" height="214.6" rx="3" fill="url(#barComplex)" stroke="none"/>
+<rect x="696" y="253.0" width="30" height="29.0" rx="3" fill="url(#barSimple)" stroke="var(--border)"/>
+<text x="711.0" y="296" text-anchor="middle" font-family="DM Mono" font-size="8" fill="var(--txt-4)">33-34</text>
+<rect x="737" y="258.8" width="30" height="23.2" rx="3" fill="url(#barSimple)" stroke="var(--border)"/>
+<rect x="778" y="113.8" width="30" height="168.2" rx="3" fill="url(#barComplex)" stroke="none"/>
+<text x="793.0" y="296" text-anchor="middle" font-family="DM Mono" font-size="8" fill="var(--txt-4)">37-38</text>
+<rect x="819" y="160.2" width="30" height="121.8" rx="3" fill="url(#barComplex)" stroke="none"/>
+<text x="30" y="310" font-family="DM Sans" font-size="9" fill="var(--txt-4)">Pares de peticiones de prueba, en orden cronológico →</text>
+</svg>
+        <div class="diagram-cap">Latencia por par de peticiones consecutivas durante la sesión de prueba (una barra = 2 peticiones). Rango: 2–7 s en peticiones simples, 20–37 s en peticiones complejas que encadenan varios agentes (§10, §13). Línea punteada: promedio general de la sesión.</div>
+      </div>
+
+      <div class="diagram-frame">
+        <svg viewBox="0 0 970 330" width="100%" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="barSimple" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--card-2)"/><stop offset="1" stop-color="var(--border)"/></linearGradient>
+<linearGradient id="barComplex" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F0C84A"/><stop offset="1" stop-color="#8C6518"/></linearGradient>
+</defs>
+<text x="485.0" y="22" text-anchor="middle" font-family="DM Sans" font-size="13" font-weight="700" fill="var(--txt-1)">Consumo de tokens por par de peticiones (sesión de prueba)</text>
+<rect x="650" y="38" width="14" height="10" rx="2" fill="url(#barSimple)" stroke="var(--border)"/>
+<text x="668" y="47" font-family="DM Sans" font-size="9.5" fill="var(--txt-3)">Petición simple</text>
+<rect x="770" y="38" width="14" height="10" rx="2" fill="url(#barComplex)"/>
+<text x="788" y="47" font-family="DM Sans" font-size="9.5" fill="var(--txt-3)">Petición compleja</text>
+<line x1="30" y1="282" x2="860" y2="282" stroke="var(--border)" stroke-width="1.5"/>
+<line x1="30" y1="181.2" x2="860" y2="181.2" stroke="var(--gold)" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="868" y="185.2" font-family="DM Mono" font-size="10.5" font-weight="700" fill="var(--gold)">prom. 30.4k tok</text>
+<rect x="40" y="268.1" width="30" height="13.9" rx="3" fill="url(#barSimple)" stroke="var(--border)"/>
+<text x="55.0" y="296" text-anchor="middle" font-family="DM Mono" font-size="8" fill="var(--txt-4)">1-2</text>
+<rect x="81" y="259.5" width="30" height="22.5" rx="3" fill="url(#barSimple)" stroke="var(--border)"/>
+<rect x="122" y="265.1" width="30" height="16.9" rx="3" fill="url(#barSimple)" stroke="var(--border)"/>
+<text x="137.0" y="296" text-anchor="middle" font-family="DM Mono" font-size="8" fill="var(--txt-4)">5-6</text>
+<rect x="163" y="126.2" width="30" height="155.8" rx="3" fill="url(#barComplex)" stroke="none"/>
+<rect x="204" y="109.7" width="30" height="172.3" rx="3" fill="url(#barComplex)" stroke="none"/>
+<text x="219.0" y="296" text-anchor="middle" font-family="DM Mono" font-size="8" fill="var(--txt-4)">9-10</text>
+<rect x="245" y="255.8" width="30" height="26.2" rx="3" fill="url(#barSimple)" stroke="var(--border)"/>
+<rect x="286" y="261.5" width="30" height="20.5" rx="3" fill="url(#barSimple)" stroke="var(--border)"/>
+<text x="301.0" y="296" text-anchor="middle" font-family="DM Mono" font-size="8" fill="var(--txt-4)">13-14</text>
+<rect x="327" y="79.8" width="30" height="202.2" rx="3" fill="url(#barComplex)" stroke="none"/>
+<rect x="368" y="264.1" width="30" height="17.9" rx="3" fill="url(#barSimple)" stroke="var(--border)"/>
+<text x="383.0" y="296" text-anchor="middle" font-family="DM Mono" font-size="8" fill="var(--txt-4)">17-18</text>
+<rect x="409" y="119.6" width="30" height="162.4" rx="3" fill="url(#barComplex)" stroke="none"/>
+<rect x="450" y="66.6" width="30" height="215.4" rx="3" fill="url(#barComplex)" stroke="none"/>
+<text x="465.0" y="296" text-anchor="middle" font-family="DM Mono" font-size="8" fill="var(--txt-4)">21-22</text>
+<rect x="491" y="255.2" width="30" height="26.8" rx="3" fill="url(#barSimple)" stroke="var(--border)"/>
+<rect x="532" y="260.1" width="30" height="21.9" rx="3" fill="url(#barSimple)" stroke="var(--border)"/>
+<text x="547.0" y="296" text-anchor="middle" font-family="DM Mono" font-size="8" fill="var(--txt-4)">25-26</text>
+<rect x="573" y="132.9" width="30" height="149.1" rx="3" fill="url(#barComplex)" stroke="none"/>
+<rect x="614" y="89.8" width="30" height="192.2" rx="3" fill="url(#barComplex)" stroke="none"/>
+<text x="629.0" y="296" text-anchor="middle" font-family="DM Mono" font-size="8" fill="var(--txt-4)">29-30</text>
+<rect x="655" y="73.2" width="30" height="208.8" rx="3" fill="url(#barComplex)" stroke="none"/>
+<rect x="696" y="258.1" width="30" height="23.9" rx="3" fill="url(#barSimple)" stroke="var(--border)"/>
+<text x="711.0" y="296" text-anchor="middle" font-family="DM Mono" font-size="8" fill="var(--txt-4)">33-34</text>
+<rect x="737" y="262.4" width="30" height="19.6" rx="3" fill="url(#barSimple)" stroke="var(--border)"/>
+<rect x="778" y="99.7" width="30" height="182.3" rx="3" fill="url(#barComplex)" stroke="none"/>
+<text x="793.0" y="296" text-anchor="middle" font-family="DM Mono" font-size="8" fill="var(--txt-4)">37-38</text>
+<rect x="819" y="116.3" width="30" height="165.7" rx="3" fill="url(#barComplex)" stroke="none"/>
+<text x="30" y="310" font-family="DM Sans" font-size="9" fill="var(--txt-4)">Pares de peticiones de prueba, en orden cronológico →</text>
+</svg>
+        <div class="diagram-cap">Consumo de tokens por el mismo par de peticiones. Rango: 3,000–9,000 tokens en peticiones simples; 45,000–65,000 tokens en peticiones complejas — múltiples llamadas encadenadas al modelo de lenguaje por evento (§10). Línea punteada: promedio general de la sesión.</div>
+      </div>
+
+      <h3>Resultados de la ronda exploratoria</h3>
+      <p>Antes de correr las tres fases anteriores de forma sistemática, se hizo una ronda exploratoria de pruebas manuales conversando directamente con el orquestador sobre los agentes de CRM, Inventario, Historial de herramientas, Gastos fijos y Órdenes de servicio. A continuación se documenta, de forma separada, qué comportamientos quedaron validados y qué fallas concretas se identificaron.</p>
+
+      <div class="callout ok">
+        <div class="callout-lbl">Qué salió bien</div>
+        <ul style="margin-bottom:0;">
+          <li><strong>Registro conversacional robusto</strong> en CRM e Inventario: el sistema interpreta lenguaje coloquial con errores tipográficos severos y aun así extrae correctamente los datos (nombre, teléfono, rol; herramienta, unidades, notas).</li>
+          <li><strong>Nunca completa una acción con datos incompletos</strong>: pide explícitamente lo que falta (teléfono de contacto, descripción o cantidad de una herramienta nueva, monto de un gasto) antes de escribir el registro.</li>
+          <li><strong>Detecta duplicados y ambigüedad antes de actuar</strong>: avisa cuando un registro ya existe (mecánico repetido, préstamo ya anotado) y desambigua entre herramientas con nombres parecidos (Compresor vs. Compresímetro) preguntando en vez de asumir.</li>
+          <li><strong>Maneja bien los términos no reconocidos</strong>: cuando no encuentra una herramienta mencionada, no inventa un registro nuevo — presenta la lista completa de herramientas existentes y espera a que el usuario aclare a cuál se refería.</li>
+          <li><strong>Aplica reglas de negocio de forma consistente</strong>: rechaza prestar una herramienta sin unidades disponibles (ofreciendo alternativas) y rechaza registrar préstamos con fecha retroactiva, proponiendo opciones válidas en su lugar.</li>
+          <li><strong>Contadores de inventario correctos en cascada</strong>: las unidades disponibles se actualizan bien a través de múltiples préstamos y devoluciones dentro de la misma sesión.</li>
+          <li><strong>Registro por lote funcional</strong>: ocho gastos fijos capturados en una sola conversación, con distinción correcta entre pagado/pendiente y el total calculado.</li>
+        </ul>
+      </div>
+
+      <div class="callout warn">
+        <div class="callout-lbl">Qué salió mal</div>
+        <div class="tbl-wrap" style="margin:10px 0 0;">
+          <table class="doc-table">
+            <thead><tr><th style="width:20%">Módulo</th><th>Problema</th></tr></thead>
+            <tbody>
+              <tr><td class="strong">Inventario</td><td>Confirmación falsa: reportó como "agregado" un extractor de poleas que en realidad no se guardó — contradice el principio de no confirmar falsamente ya definido en §13.</td></tr>
+              <tr><td class="strong">Mecánicos</td><td>ID duplicado al registrar un mecánico nuevo; se corrigió solo tras indicar el ID manualmente.</td></tr>
+              <tr><td class="strong">Mecánicos</td><td>Segunda confirmación falsa: reportó un registro como agregado y no apareció después.</td></tr>
+              <tr><td class="strong">Historial de Herramientas</td><td>En una consulta, el agente respondió sin invocar ninguna herramienta — alucinó una respuesta en vez de ejecutar la acción real.</td></tr>
+              <tr><td class="strong">Historial de Herramientas</td><td>Un préstamo se registró con herramienta, fecha y cantidad correctas, pero atribuido al mecánico equivocado.</td></tr>
+              <tr><td class="strong">Historial de Herramientas</td><td>La misma construcción de lenguaje se interpretó una vez como préstamo y otra como compra, sin que el usuario aclarara la diferencia — inconsistencia de criterio.</td></tr>
+              <tr><td class="strong">Gastos Fijos</td><td>No permite modificar la fecha de un registro ya creado. Al pedir la creación de ocho instancias en una sola consulta, los IDs se generaron en un formato no estándar — a diferencia de Clientes/Proveedores, donde la misma prueba por lote sí generó IDs secuenciales correctos.</td></tr>
+              <tr><td class="strong">Órdenes de Servicio</td><td>Al modificar la fecha de una orden, devolvió literalmente el texto de formato esperado ("usa el formato...") en vez de aplicar el cambio.</td></tr>
+              <tr><td class="strong">Órdenes de Servicio</td><td>El cambio de estatus de una compra no siempre se aplica.</td></tr>
+              <tr><td class="strong">Rendimiento (n8n)</td><td>La sesión se traba después de aproximadamente 3–5 consultas consecutivas.</td></tr>
+              <tr><td class="strong">Modelo</td><td>A partir de la consulta 11 se cambió el modelo del orquestador de Haiku a Sonnet dentro de la misma sesión, lo que sugiere degradación de precisión bajo mayor volumen de contexto con el modelo económico.</td></tr>
+              <tr><td class="strong">Costo</td><td>La sesión de pruebas consumió 33.28 USD en llamadas a la API en un periodo acotado — dato de referencia para estimar el costo por conversación.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ 18 — CONCLUSIONES Y TRABAJO FUTURO ═══════════════════ -->
+    <section class="doc-section" id="s18">
+      <div class="sec-eyebrow"><span class="sec-num">18</span><span class="sec-lbl">Cierre</span></div>
+      <h2>Conclusiones y trabajo futuro</h2>
+      <p class="sec-dek">Qué tan bien funciona el sistema hoy, y las mejoras que ya están identificadas para las siguientes etapas.</p>
+
+      <div class="callout ok">
+        <div class="callout-lbl">Resultado general</div>
+        <p>La arquitectura propuesta funciona en la práctica, no solo en el papel: el orquestador invoca correctamente las herramientas de cada agente, los disparadores proactivos se ejecutan sin intervención humana en el horario esperado, y el sistema sostiene conversaciones completas por WhatsApp de principio a fin. La validación formal de §17 ya se ejecutó, con 91.0% de precisión de enrutamiento sobre 122 peticiones de prueba, y confirma que el diseño multiagente (§6) y el patrón de delegación (§7) son sólidos.</p>
+      </div>
+
+      <h3>Mejoras y trabajo futuro</h3>
+      <p>Seis líneas de trabajo ya identificadas para las siguientes etapas del proyecto, sin un orden de prioridad implícito:</p>
+
+      <div class="vi"><div class="vi-num">1</div><div><div class="vi-t">Botón físico en el taller</div><div class="vi-d">Un botón físico instalado en el taller para comunicarse con el sistema sin pasar por WhatsApp. Funciona como un intercomunicador tipo walkie-talkie: se mantiene presionado mientras se habla la petición, y al soltarlo se envía y se ejecuta en el sistema, que responde con un archivo de audio — una comunicación de voz completa, sin texto de por medio. El botón opera siempre con el nivel de acceso de <strong>mecánico</strong> (§8), sin importar qué persona física lo presione, por lo que nunca puede ejecutar peticiones de rango más alto (financieras, de roles, etc.) reservadas a Dueño o Gerente.</div></div></div>
+
+      <div class="vi"><div class="vi-num">2</div><div><div class="vi-t">Migrar de Google Sheets a PostgreSQL</div><div class="vi-d">Google Sheets impone un límite de peticiones por minuto en su API que se vuelve un cuello de botella bajo volumen alto de escritura/lectura. El plan es migrar toda la base de datos (§12) a PostgreSQL para eliminar ese límite y soportar peticiones masivas sin degradar la latencia.</div></div></div>
+
+      <div class="vi"><div class="vi-num">3</div><div><div class="vi-t">Rediseñar las herramientas de creación de registros</div><div class="vi-d">Hoy, para insertar un registro nuevo el agente debe invocar una herramienta que obtiene el último ID, sumarle uno manualmente y pasarlo como parte de la escritura. Es frágil: un error del agente, o un intento de inyección de prompt que le indique explícitamente usar otro ID, puede corromper el dato. La solución es mover la generación del ID a la capa de base de datos (autoincremento/secuencia) para que ningún agente decida nunca el identificador.</div></div></div>
+
+      <div class="vi"><div class="vi-num">4</div><div><div class="vi-t">Modelo propio con fine-tuning para el orquestador</div><div class="vi-d">La estructura de costos actual no justifica subir a un modelo comercial más caro solo para el orquestador. Un modelo con fine-tuning propio, desplegado en infraestructura propia, es una vía más económica para ganar precisión y reducir el margen de error sin escalar el costo por llamada.</div></div></div>
+
+      <div class="vi"><div class="vi-num">5</div><div><div class="vi-t">Modelos fine-tuneados con LoRA por agente</div><div class="vi-d">Extender la misma idea a cada subagente: modelos desplegados en infraestructura propia, con adaptadores LoRA entrenados por dominio, para reducir el costo de tokens por llamada y mejorar aún más la precisión de cada agente en las tareas específicas de su catálogo.</div></div></div>
+
+      <div class="vi"><div class="vi-num">6</div><div><div class="vi-t">Migrar de n8n a un framework como LangGraph</div><div class="vi-d">n8n se usó como plataforma principal porque permitió iterar muy rápido durante el MVP, pero desplegar una instancia nueva por cliente sobre n8n es complicado. El plan a mediano plazo es migrar a un framework de código como LangGraph, empaquetado en contenedores Docker, para que un cliente pueda pagar y obtener su propia instancia desplegada de forma autónoma.</div></div></div>
     </section>
 
   </main>
@@ -1326,7 +1611,7 @@ html[data-mode="dark"] .inline-code, html[data-mode="dark"] code { color: var(--
       <div class="f-desc">Jose Luis Macedo Escamilla · Fernanda Torres Abaroa · Alfredo Mérida</div>
     </div>
   </div>
-  <div class="f-r">Versión 1.0 — borrador de ingeniería<br>Secciones 01–15</div>
+  <div class="f-r">Versión 1.0 — borrador de ingeniería<br>Secciones 01–18</div>
 </div>
 
 <script>
