@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "Proyecto"
-nav_order: 8
+nav_order: 9
 ---
 
 # Proyecto Final — TORQUE: Sistema Operativo de IA para Talleres Mecánicos

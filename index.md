@@ -24,6 +24,12 @@ Cada práctica documenta experimentos reales con modelos de lenguaje grande (LLM
 
 ---
 
+## Presentación Intermedia
+
+**[Presentación Intermedia — TORQUE Pitch Deck](presentacion-intermedia/)** — presentación de avance del proyecto TORQUE (26 diapositivas): problema, solución y estado actual del sistema, previa al detalle técnico de arquitectura.
+
+---
+
 ## Proyecto
 
 **[TORQUE](practica-proyecto/)** — Sistema operativo de IA multiagente que administra la operación diaria de un taller mecánico por WhatsApp (texto, voz y fotografía): decide qué acción tomar, la ejecuta sobre los datos del negocio y vigila el taller de forma proactiva. Implementado en **n8n** con un agente orquestador, roles por número de teléfono, ingeniería de prompts por agente y un loop agéntico con límite de iteraciones. [Ver documentación completa de arquitectura →](practica-proyecto/)
@@ -52,5 +58,6 @@ Cada práctica documenta experimentos reales con modelos de lenguaje grande (LLM
 - [Práctica 4 – Copilotos especializados con Ollama](practica4/)
 - [Práctica 5 – APIs LLM externas vs Ollama](practica5/)
 - [Práctica 6 – Evaluación de arquitecturas LLM + MQTT](practica6/)
+- [Presentación Intermedia – TORQUE Pitch Deck](presentacion-intermedia/)
 - [Proyecto – TORQUE: Sistema Operativo de IA para Talleres Mecánicos](practica-proyecto/)
 - [Uso de IA en este sitio](uso-ia/)

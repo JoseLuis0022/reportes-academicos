@@ -281,6 +281,33 @@ a:focus-visible        { outline: 3px solid var(--gold-l); outline-offset: 3px; 
 }
 
 /* ═══════════════════════════════════════════════════════════
+   BOTÓN GRANDE — call to action (ej. abrir en pantalla completa)
+   ═══════════════════════════════════════════════════════════ */
+.main-content .btn-big {
+  display: inline-block;
+  background: var(--g-accent);
+  color: #fff !important;
+  font-weight: 700;
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  padding: var(--sp-4) var(--sp-6);
+  border-radius: 999px;
+  text-decoration: none !important;
+  box-shadow: 0 4px 14px rgba(201,150,42,0.35);
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+  min-height: var(--touch-min);
+  box-sizing: border-box;
+}
+.main-content .btn-big:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(201,150,42,0.45);
+  color: #fff !important;
+}
+.main-content .btn-big-wrap {
+  text-align: center;
+  margin: var(--sp-5) 0;
+}
+
+/* ═══════════════════════════════════════════════════════════
    CHECKLISTS
    ═══════════════════════════════════════════════════════════ */
 .main-content input[type="checkbox"] {
